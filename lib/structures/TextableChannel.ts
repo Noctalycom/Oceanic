@@ -16,14 +16,16 @@ import { UncachedError } from "../util/Errors";
 
 /** Represents a guild textable channel. */
 export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildChannel = Types.Channels.AnyTextableGuildChannel> extends GuildChannel {
-    /** The last message sent in this channel. This will only be present if a message has been sent within the current session. */
-    lastMessage?: Message<CH> | null;
     /** The ID of last message sent in this channel. */
     lastMessageID: string | null;
-    /** The cached messages in this channel. */
-    messages: TypedCollection<Types.Channels.RawMessage, Message<CH>>;
-    /** If this channel is age gated. */
-    nsfw: boolean;
+    private _messages?: TypedCollection<Types.Channels.RawMessage, Message<CH>>;
+    /** The cached messages in this channel. Lazily allocated on first access. */
+    get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>> {
+        if (!this._messages) {
+            this._messages = new TypedCollection(Message<CH>, this.client, this.client.util._getLimit("messages", this.id));
+        }
+        return this._messages;
+    }
     /** The permission overwrites of this channel. */
     permissionOverwrites: TypedCollection<Types.Channels.RawOverwrite, PermissionOverwrite>;
     /** The position of this channel on the sidebar. */
@@ -36,8 +38,6 @@ export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildC
     constructor(data: Types.Channels.RawTextChannel | Types.Channels.RawAnnouncementChannel | Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel, client: Client) {
         super(data, client);
         this.lastMessageID = data.last_message_id;
-        this.messages = new TypedCollection(Message<CH>, client, this.client.util._getLimit("messages", this.id));
-        this.nsfw = data.nsfw;
         this.permissionOverwrites = new TypedCollection(PermissionOverwrite, client);
         this.position = data.position;
         this.rateLimitPerUser = data.rate_limit_per_user;
@@ -48,11 +48,7 @@ export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildC
     protected override update(data: Partial<Types.Channels.RawTextChannel | Types.Channels.RawAnnouncementChannel | Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel>): void {
         super.update(data);
         if (data.last_message_id !== undefined) {
-            this.lastMessage = data.last_message_id === null ? null : this.messages.get(data.last_message_id);
             this.lastMessageID = data.last_message_id;
-        }
-        if (data.nsfw !== undefined) {
-            this.nsfw = data.nsfw;
         }
         if (data.position !== undefined) {
             this.position = data.position;
@@ -286,14 +282,13 @@ export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildC
         return {
             ...super.toJSON(),
             lastMessageID:        this.lastMessageID,
-            messages:             this.messages.map(message => message.id),
-            nsfw:                 this.nsfw,
+            messages:             this._messages?.map(message => message.id) ?? [],
             permissionOverwrites: this.permissionOverwrites.map(overwrite => overwrite.toJSON()),
             position:             this.position,
             rateLimitPerUser:     this.rateLimitPerUser,
             topic:                this.topic,
             type:                 this.type
-        };
+        } as unknown as Types.JSON.JSONTextableChannel;
     }
 
     /**

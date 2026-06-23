@@ -14,8 +14,6 @@ import { UncachedError } from "../util/Errors";
 export default class ThreadChannel<T extends Types.Channels.AnyThreadChannel = Types.Channels.AnyThreadChannel> extends GuildChannel {
     /** The [flags](https://discord.com/developers/docs/resources/channel#channel-object-channel-flags) for this thread channel. */
     flags: number;
-    /** The last message sent in this channel. This will only be present if a message has been sent within the current session. */
-    lastMessage?: Message<T> | null;
     /** The ID of last message sent in this channel. */
     lastMessageID: string | null;
     /** The approximate number of members in this thread. Stops counting after 50. */
@@ -24,8 +22,14 @@ export default class ThreadChannel<T extends Types.Channels.AnyThreadChannel = T
     members: Array<Types.Channels.ThreadMember>;
     /** The number of messages (not including the initial message or deleted messages) in the thread. Stops counting after 50. */
     messageCount: number;
-    /** The cached messages in this channel. */
-    messages: TypedCollection<Types.Channels.RawMessage, Message<T>>;
+    private _messages?: TypedCollection<Types.Channels.RawMessage, Message<T>>;
+    /** The cached messages in this channel. Lazily allocated on first access. */
+    get messages(): TypedCollection<Types.Channels.RawMessage, Message<T>> {
+        if (!this._messages) {
+            this._messages = new TypedCollection(Message<T>, this.client, this.client.util._getLimit("messages", this.id));
+        }
+        return this._messages;
+    }
     /** The owner of this thread. */
     owner?: User;
     /** The ID of the owner of this thread. */
@@ -45,7 +49,6 @@ export default class ThreadChannel<T extends Types.Channels.AnyThreadChannel = T
         this.memberCount = 0;
         this.members = [];
         this.messageCount = 0;
-        this.messages = new TypedCollection(Message<T>, client, this.client.util._getLimit("messages", this.id));
         this.ownerID = data.owner_id;
         this.rateLimitPerUser = data.rate_limit_per_user;
         this.threadMetadata = {
@@ -68,7 +71,6 @@ export default class ThreadChannel<T extends Types.Channels.AnyThreadChannel = T
             this.flags = data.flags;
         }
         if (data.last_message_id !== undefined) {
-            this.lastMessage = data.last_message_id === null ? null : this.messages.get(data.last_message_id);
             this.lastMessageID = data.last_message_id;
         }
         // @TODO look over this to see if we can make it "safer" (accessing Client#user)
@@ -304,13 +306,13 @@ export default class ThreadChannel<T extends Types.Channels.AnyThreadChannel = T
             lastMessageID:    this.lastMessageID,
             memberCount:      this.memberCount,
             messageCount:     this.messageCount,
-            messages:         this.messages.map(m => m.id),
+            messages:         this._messages?.map(m => m.id) ?? [],
             ownerID:          this.ownerID,
             rateLimitPerUser: this.rateLimitPerUser,
             threadMetadata:   this.threadMetadata,
             totalMessageSent: this.totalMessageSent,
             type:             this.type
-        };
+        } as unknown as Types.JSON.JSONThreadChannel;
     }
 
     /**

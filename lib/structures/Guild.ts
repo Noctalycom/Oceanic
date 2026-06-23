@@ -295,45 +295,6 @@ export default class Guild extends Base {
         }
 
 
-        if (data.presences) {
-            for (const presence of data.presences) {
-                const member = this.members.get(presence.user.id);
-                if (member) {
-                    delete (presence as { user?: Types.Gateway.PresenceUpdate["user"]; }).user;
-                    member.presence = {
-                        clientStatus: presence.client_status,
-                        guildID:      presence.guild_id,
-                        status:       presence.status,
-                        activities:   presence.activities?.map(activity => ({
-                            createdAt:     activity.created_at,
-                            name:          activity.name,
-                            type:          activity.type,
-                            applicationID: activity.application_id,
-                            assets:        activity.assets ? {
-                                largeImage: activity.assets.large_image,
-                                largeText:  activity.assets.large_text,
-                                smallImage: activity.assets.small_image,
-                                smallText:  activity.assets.small_text
-                            } : undefined,
-                            buttons:    activity.buttons,
-                            details:    activity.details,
-                            emoji:      activity.emoji,
-                            flags:      activity.flags,
-                            instance:   activity.instance,
-                            party:      activity.party,
-                            secrets:    activity.secrets,
-                            state:      activity.state,
-                            timestamps: activity.timestamps,
-                            url:        activity.url
-                        }))
-                    };
-                } else {
-                    client.emit("debug", `Rogue presence (user: ${presence.user.id}, guild: ${this.id})`);
-                }
-
-            }
-        }
-
 
         if (data.voice_states) {
             for (const voiceState of data.voice_states) {
@@ -1398,7 +1359,7 @@ export default class Guild extends Base {
         if (member.id === this.ownerID) {
             return new Permission(AllPermissions);
         } else {
-            let permissions = this.roles.get(this.id)!.permissions.allow;
+            let permissions = this.roles.get(this.id)!.permissionsAllow;
             if (permissions & Permissions.ADMINISTRATOR) {
                 return new Permission(AllPermissions);
             }
@@ -1407,11 +1368,11 @@ export default class Guild extends Base {
                 if (!role) {
                     continue;
                 }
-                if (role.permissions.allow & Permissions.ADMINISTRATOR) {
+                if (role.permissionsAllow & Permissions.ADMINISTRATOR) {
                     permissions = AllPermissions;
                     break;
                 } else {
-                    permissions |= role.permissions.allow;
+                    permissions |= role.permissionsAllow;
                 }
             }
             return new Permission(permissions);
