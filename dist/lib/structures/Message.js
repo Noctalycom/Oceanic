@@ -115,6 +115,22 @@ class Message extends Base_1.default {
         if (data.flags !== undefined) {
             this.flags = data.flags;
         }
+        if (data.interaction !== undefined) {
+            let member;
+            if (data.interaction.member) {
+                member = {
+                    ...data.interaction.member,
+                    user: data.interaction.user
+                };
+            }
+            this.interaction = {
+                id:     data.interaction.id,
+                member: member ? this.client.util.updateMember(data.guild_id, member.user.id, member) : undefined,
+                name:   data.interaction.name,
+                type:   data.interaction.type,
+                user:   this.client.users.update(data.interaction.user)
+            };
+        }
         if (data.interaction_metadata !== undefined) {
             this.interactionMetadata = {
                 authorizingIntegrationOwners: data.interaction_metadata.authorizing_integration_owners,
@@ -296,6 +312,13 @@ class Message extends Base_1.default {
             embeds: this.embeds,
             flags: this.flags,
             guildID: this.guildID ?? undefined,
+            interaction: this.interaction === undefined ? undefined : {
+                id:     this.interaction.id,
+                member: this.interaction.member?.toJSON(),
+                name:   this.interaction.name,
+                type:   this.interaction.type,
+                user:   this.interaction.user.toJSON()
+            },
             interactionMetadata: im === undefined ? undefined : {
                 authorizingIntegrationOwners: im.authorizingIntegrationOwners,
                 id: im.id,
