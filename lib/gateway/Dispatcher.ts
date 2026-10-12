@@ -20,8 +20,8 @@ export default class Dispatcher {
             configurable: false
         });
 
-        const type = this.manager.options.dispatcher.blacklist === null ? "blacklist" :
-            (this.manager.options.dispatcher.whitelist === null ? "whitelist" : "none");
+        const type = this.manager.options.dispatcher.whitelist === null ? "blacklist" :
+            (this.manager.options.dispatcher.blacklist === null ? "whitelist" : "none");
 
         for (const [event, fn] of Object.entries(DefaultDispatchEvents) as Array<[DispatchEvent, DispatchFunction]>) {
             if (type === "none" ||
