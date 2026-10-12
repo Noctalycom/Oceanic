@@ -512,31 +512,19 @@ export interface JSONMediaChannel extends JSONThreadOnlyChannel {
 }
 export interface JSONMember extends JSONBase {
     avatar: string | null;
-    avatarDecorationData: Types.Users.AvatarDecorationData | null;
-    banner: string | null;
     communicationDisabledUntil: number | null;
-    deaf: boolean;
-    flags?: number;
     guildID: string;
-    isPending?: boolean;
     joinedAt: number | null;
-    mute: boolean;
     nick: string | null;
-    pending: boolean;
-    premiumSince: number | null;
-    presence?: Types.Guilds.Presence;
     roles: Array<string>;
     user: JSONUser;
 }
 export interface JSONMessage extends JSONBase {
-    activity?: Types.Channels.MessageActivity;
-    applicationID?: string;
     attachments: Array<JSONAttachment>;
     author: JSONUser;
     channelID: string;
     components?: Array<Types.Channels.MessageComponent>;
     content: string;
-    editedTimestamp: number | null;
     embeds: Array<Types.Channels.Embed>;
     flags?: number;
     guildID?: string;
@@ -569,7 +557,6 @@ export interface JSONMessage extends JSONBase {
         type: InteractionTypes;
         user: JSONUser;
     };
-    mentionChannels?: Array<Types.Channels.ChannelMention>;
     mentions: {
         channels: Array<string>;
         everyone: boolean;
@@ -577,7 +564,6 @@ export interface JSONMessage extends JSONBase {
         roles: Array<string>;
         users: Array<JSONUser>;
     };
-    messageReference?: Types.Channels.MessageReference;
     messageSnapshots?: Array<{
         message: {
             attachments: Array<JSONAttachment>;
@@ -594,19 +580,10 @@ export interface JSONMessage extends JSONBase {
             type: MessageTypes;
         };
     }>;
-    nonce?: number | string;
-    pinned: boolean;
     poll?: JSONPoll;
-    pollResults?: Types.Channels.MessagePollResults;
-    position?: number;
     reactions: Array<Types.Channels.MessageReaction>;
-    referencedMessage?: JSONMessage | null;
-    stickerItems?: Array<Types.Channels.StickerItem>;
-    thread?: JSONAnnouncementThreadChannel | JSONPublicThreadChannel | JSONPrivateThreadChannel;
     timestamp: number;
-    tts: boolean;
     type: MessageTypes;
-    webhook?: string;
 }
 export interface JSONModalSubmitInteraction extends JSONInteraction {
     appPermissions: JSONPermission;
@@ -708,19 +685,16 @@ export interface JSONPublicThreadChannel extends JSONThreadChannel {
     type: ChannelTypes.PUBLIC_THREAD;
 }
 export interface JSONRole extends JSONBase {
-    /** @deprecated */
     color: number;
-    colors: Types.Guilds.RoleColors;
     guildID: string;
-    hoist: boolean;
     icon: string | null;
     managed: boolean;
-    mentionable: boolean;
     name: string;
+    /** Only `allow` is cached; `deny` is always "0". */
     permissions: JSONPermission;
+    permissionsAllow: string;
     position: number;
-    tags: Types.Guilds.RoleTags;
-    unicodeEmoji: string | null;
+    secondaryColor: number;
 }
 export interface JSONScheduledEvent extends JSONBase {
     channelID: string | null;
@@ -795,7 +769,6 @@ export interface JSONTextableChannel extends JSONGuildChannel {
     lastMessageID: string | null;
     lastPinTimestamp: string | null;
     messages: Array<string>;
-    nsfw: boolean;
     permissionOverwrites: Array<JSONPermissionOverwrite>;
     position: number;
     rateLimitPerUser: number;
@@ -852,17 +825,12 @@ export interface JSONUnavailableGuild extends JSONBase {
     unavailable: true;
 }
 export interface JSONUser extends JSONBase {
-    accentColor?: number | null;
     avatar: string | null;
-    avatarDecorationData: Types.Users.AvatarDecorationData | null;
     banner?: string | null;
     bot: boolean;
-    collectibles: Types.Users.Collectibles | null;
-    discriminator: string;
     globalName: string | null;
     premiumType?: PremiumTypes;
     publicFlags: number;
-    system: boolean;
     username: string;
 }
 export interface JSONVoiceChannel extends JSONTextableVoiceChannel {

@@ -12,8 +12,7 @@ import { UncachedError } from "../util/Errors";
 
 /** Represents a guild thread channel. */
 export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = Types.Channels.AnyThreadChannel> extends GuildChannel {
-    /** The last message sent in this channel. This will only be present if a message has been sent within the current session. */
-    lastMessage?: Message<CH> | null;
+    private _messages?: TypedCollection<Types.Channels.RawMessage, Message<CH>>;
     /** The ID of last message sent in this channel. */
     lastMessageID: string | null;
     /** The approximate number of members in this thread. Stops counting after 50. */
@@ -22,8 +21,6 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
     members: Array<Types.Channels.ThreadMember>;
     /** The number of messages (not including the initial message or deleted messages) in the thread. Stops counting after 50. */
     messageCount: number;
-    /** The cached messages in this channel. */
-    messages: TypedCollection<Types.Channels.RawMessage, Message<CH>>;
     /** The owner of this thread. */
     owner?: User;
     /** The ID of the owner of this thread. */
@@ -43,7 +40,6 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         this.memberCount = 0;
         this.members = [];
         this.messageCount = 0;
-        this.messages = new TypedCollection(Message<CH>, client, this.client.util._getLimit("messages", this.id));
         this.ownerID = data.owner_id;
         this.rateLimitPerUser = data.rate_limit_per_user;
         this.threadMetadata = {
@@ -66,7 +62,6 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
             this.flags = data.flags;
         }
         if (data.last_message_id !== undefined) {
-            this.lastMessage = data.last_message_id === null ? null : this.messages.get(data.last_message_id);
             this.lastMessageID = data.last_message_id;
         }
         // @TODO look over this to see if we can make it "safer" (accessing Client#user)
@@ -113,6 +108,12 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         if (data.total_message_sent !== undefined) {
             this.totalMessageSent = data.total_message_sent;
         }
+    }
+
+    /** The cached messages in this channel. Lazily allocated on first access. */
+    get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>> {
+        this._messages ??= new TypedCollection(Message<CH>, this.client, this.client.util._getLimit("messages", this.id));
+        return this._messages;
     }
 
     /**
@@ -342,7 +343,7 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
             lastMessageID:    this.lastMessageID,
             memberCount:      this.memberCount,
             messageCount:     this.messageCount,
-            messages:         this.messages.map(m => m.id),
+            messages:         this._messages?.map(m => m.id) ?? [],
             ownerID:          this.ownerID,
             rateLimitPerUser: this.rateLimitPerUser,
             threadMetadata:   this.threadMetadata,
