@@ -1,9 +1,9 @@
 /** @module StageChannel */
-import type StageInstance from "./StageInstance";
 import TextableVoiceChannel from "./TextableVoiceChannel";
-import type * as Types from "../types/namespaced";
-import type { ChannelTypes } from "../Constants";
+import type StageInstance from "./StageInstance";
 import type Client from "../Client";
+import type { ChannelTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild stage channel. */
 export default class StageChannel extends TextableVoiceChannel<StageChannel> {
     type: ChannelTypes.GUILD_STAGE_VOICE;

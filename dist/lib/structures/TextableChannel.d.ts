@@ -1,15 +1,14 @@
-/** @module TextableChannel */
+import TypedCollection from "../util/TypedCollection";
 import GuildChannel from "./GuildChannel";
-import PermissionOverwrite from "./PermissionOverwrite";
 import Message from "./Message";
+import Permission from "./Permission";
+import PermissionOverwrite from "./PermissionOverwrite";
 import type { InviteWithMetadata } from "./Invite";
 import type Member from "./Member";
-import Permission from "./Permission";
 import type User from "./User";
 import type Webhook from "./Webhook";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
+import type * as Types from "../types/namespaced";
 /** Represents a guild textable channel. Not used for threads. */
 export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildChannel = Types.Channels.AnyTextableGuildChannel> extends GuildChannel {
     private _messages?;
@@ -27,9 +26,9 @@ export default class TextableChannel<CH extends Types.Channels.AnyTextableGuildC
     topic: string | null;
     type: CH["type"];
     constructor(data: Types.Channels.RawTextChannel | Types.Channels.RawAnnouncementChannel | Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel, client: Client);
-    protected update(data: Partial<Types.Channels.RawTextChannel | Types.Channels.RawAnnouncementChannel | Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel>): void;
     /** The cached messages in this channel. Lazily allocated on first access. */
     get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>>;
+    protected update(data: Partial<Types.Channels.RawTextChannel | Types.Channels.RawAnnouncementChannel | Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel>): void;
     /**
      * Create an invite for this channel. If the guild is not a `COMMUNITY` server, invites can only be made to last 30 days.
      * @param options The options for the invite.

@@ -1,16 +1,15 @@
 /** @module ClientApplication */
-import Base from "./Base";
-import type ApplicationCommand from "./ApplicationCommand";
-import TestEntitlement from "./TestEntitlement";
-import Entitlement from "./Entitlement";
-import type SKU from "./SKU";
-import type Application from "./Application";
-import Subscription from "./Subscription";
-import type Attachment from "./Attachment";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
-import type { ApplicationCommandTypes } from "../Constants";
 import TypedCollection from "../util/TypedCollection";
+import Base from "./Base";
+import Entitlement from "./Entitlement";
+import Subscription from "./Subscription";
+import TestEntitlement from "./TestEntitlement";
+import type Application from "./Application";
+import type ApplicationCommand from "./ApplicationCommand";
+import type Attachment from "./Attachment";
+import type SKU from "./SKU";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** A representation of the authorized client's application (typically received via gateway). */
 export default class ClientApplication extends Base {
     /** The entitlements for this application. This will almost certainly be empty unless you fetch entitlements, or recieve new/updated entitlements. */
@@ -30,13 +29,13 @@ export default class ClientApplication extends Base {
      * Overwrite all existing global application commands.
      * @param options The commands.
      */
-    bulkEditGlobalCommands(options: Array<Types.Applications.CreateApplicationCommandOptions>): Promise<Array<ApplicationCommand<ApplicationCommandTypes>>>;
+    bulkEditGlobalCommands(options: Array<Types.Applications.CreateApplicationCommandOptions>): Promise<Array<ApplicationCommand>>;
     /**
      * Overwrite all existing application commands in a guild.
      * @param guildID The ID of the guild.
      * @param options The commands.
      */
-    bulkEditGuildCommands(guildID: string, options: Array<Types.Applications.CreateGuildApplicationCommandOptions>): Promise<Array<ApplicationCommand<ApplicationCommandTypes>>>;
+    bulkEditGuildCommands(guildID: string, options: Array<Types.Applications.CreateGuildApplicationCommandOptions>): Promise<Array<ApplicationCommand>>;
     /**
      * Mark an entitlement as consumed.
      * @param entitlementID The ID of the entitlement to consume.

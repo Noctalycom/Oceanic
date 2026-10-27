@@ -1,8 +1,8 @@
 import type Message from "./Message";
 import type User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { PollLayoutType } from "../Constants";
+import type * as Types from "../types/namespaced";
 export default class Poll {
     allowMultiselect: boolean;
     answers: Array<Types.Channels.PollAnswer>;

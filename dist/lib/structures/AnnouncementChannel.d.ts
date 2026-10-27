@@ -1,11 +1,11 @@
 /** @module AnnouncementChannel */
-import type TextChannel from "./TextChannel";
+import { ChannelTypes } from "../Constants";
+import ThreadableChannel from "./ThreadableChannel";
 import type AnnouncementThreadChannel from "./AnnouncementThreadChannel";
 import type Message from "./Message";
-import ThreadableChannel from "./ThreadableChannel";
-import type * as Types from "../types/namespaced";
-import { ChannelTypes } from "../Constants";
+import type TextChannel from "./TextChannel";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /**
  * Represents a guild announcement channel.
  * @mergeTarget AnnouncementChannel

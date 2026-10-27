@@ -1,11 +1,10 @@
-/** @module InviteRole */
 import Base from "./Base";
 import Permission from "./Permission";
 import type Guild from "./Guild";
 import type InviteGuild from "./InviteGuild";
 import type Role from "./Role";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a partial role for an invite. */
 export default class InviteRole extends Base {
     private _cachedCompleteRole?;

@@ -1,9 +1,9 @@
 /** @module Attachment */
+import Application from "./Application";
 import Base from "./Base";
 import type User from "./User";
-import Application from "./Application";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a file attachment. */
 export default class Attachment extends Base {
     /** For Clips, the application in the stream, if recognized. */

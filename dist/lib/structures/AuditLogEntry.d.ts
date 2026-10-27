@@ -1,9 +1,9 @@
 /** @module AuditLogEntry */
 import Base from "./Base";
 import type User from "./User";
-import type * as Types from "../types/namespaced";
-import type { AuditLogActionTypes } from "../Constants";
 import type Client from "../Client";
+import type { AuditLogActionTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild audit log entry. */
 export default class AuditLogEntry extends Base {
     private _cachedUser?;

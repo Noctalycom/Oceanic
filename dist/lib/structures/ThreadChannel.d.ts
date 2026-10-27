@@ -1,12 +1,11 @@
-/** @module ThreadChannel */
+import TypedCollection from "../util/TypedCollection";
 import GuildChannel from "./GuildChannel";
 import Message from "./Message";
-import type User from "./User";
 import type Member from "./Member";
 import type Permission from "./Permission";
-import type * as Types from "../types/namespaced";
+import type User from "./User";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
+import type * as Types from "../types/namespaced";
 /** Represents a guild thread channel. */
 export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = Types.Channels.AnyThreadChannel> extends GuildChannel {
     private _messages?;
@@ -31,9 +30,9 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
     totalMessageSent: number;
     type: Types.Channels.ThreadChannels;
     constructor(data: Types.Channels.RawThreadChannel, client: Client);
-    protected update(data: Partial<Types.Channels.RawThreadChannel>): void;
     /** The cached messages in this channel. Lazily allocated on first access. */
     get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>>;
+    protected update(data: Partial<Types.Channels.RawThreadChannel>): void;
     /**
      * Add a member to this thread.
      * @param userID The ID of the user to add to the thread.

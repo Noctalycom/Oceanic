@@ -1,10 +1,9 @@
-/** @module VoiceState */
 import Base from "./Base";
-import type Member from "./Member";
 import type Guild from "./Guild";
+import type Member from "./Member";
 import type User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild member's voice state. */
 export default class VoiceState<T extends Types.Channels.AnyVoiceChannel = Types.Channels.AnyVoiceChannel> extends Base {
     private _cachedChannel?;
@@ -36,7 +35,6 @@ export default class VoiceState<T extends Types.Channels.AnyVoiceChannel = Types
     /** The ID of the user associated with this voice state. */
     userID: string;
     constructor(data: Types.Voice.RawVoiceState, client: Client);
-    protected update(data: Partial<Types.Voice.RawVoiceState>): void;
     /** The channel the user is connected to. */
     get channel(): T | null | undefined;
     /** The guild this voice state is a part of. This will throw an error if the guild is not cached. */
@@ -45,5 +43,6 @@ export default class VoiceState<T extends Types.Channels.AnyVoiceChannel = Types
     get member(): Member | undefined;
     /** TThe user associated with this voice state. */
     get user(): User | undefined;
+    protected update(data: Partial<Types.Voice.RawVoiceState>): void;
     toJSON(): Types.JSON.JSONVoiceState;
 }

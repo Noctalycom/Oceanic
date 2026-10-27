@@ -1,12 +1,11 @@
-/** @module Integration */
 import Base from "./Base";
 import PartialApplication from "./PartialApplication";
-import type User from "./User";
 import type Guild from "./Guild";
 import type Role from "./Role";
-import type * as Types from "../types/namespaced";
-import type { IntegrationExpireBehaviors, IntegrationType } from "../Constants";
+import type User from "./User";
 import type Client from "../Client";
+import type { IntegrationExpireBehaviors, IntegrationType } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild integration. */
 export default class Integration extends Base {
     private _cachedGuild?;
@@ -15,10 +14,10 @@ export default class Integration extends Base {
     account: Types.Guilds.IntegrationAccount;
     /** The application associated with this integration. */
     application: PartialApplication | null;
-    /** If emoticons should be synced for this integration. */
-    enableEmoticons: boolean;
     /** If this integration is enabled. */
     enabled: boolean;
+    /** If emoticons should be synced for this integration. */
+    enableEmoticons: boolean;
     /** The [behavior](https://discord.com/developers/docs/resources/guild#integration-object-integration-expire-behaviors) of expiring subscribers. */
     expireBehavior?: IntegrationExpireBehaviors;
     /** The grace period (in days) before expiring subscribers. */
@@ -44,10 +43,10 @@ export default class Integration extends Base {
     /** The user associated with this integration, if applicable. */
     user?: User;
     constructor(data: Types.Guilds.RawIntegration, client: Client, guildID?: string);
-    protected update(data: Partial<Types.Guilds.RawIntegration>): void;
     /** The guild this integration belongs to, if applicable. This will throw an error if the guild is not cached. */
     get guild(): Guild | null;
     /** The role this integration uses for subscribers, if any. */
     get role(): Role | null | undefined;
+    protected update(data: Partial<Types.Guilds.RawIntegration>): void;
     toJSON(): Types.JSON.JSONIntegration;
 }

@@ -1,8 +1,8 @@
 /** @module MediaChannel */
 import ThreadOnlyChannel from "./ThreadOnlyChannel";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { ChannelTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a media channel. */
 export default class MediaChannel extends ThreadOnlyChannel {
     type: ChannelTypes.GUILD_MEDIA;

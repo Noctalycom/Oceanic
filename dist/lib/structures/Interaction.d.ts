@@ -1,14 +1,14 @@
 /** @module Interaction */
+import { InteractionTypes } from "../Constants";
 import Base from "./Base";
+import type IAutocompleteInteraction from "./AutocompleteInteraction";
 import type ClientApplication from "./ClientApplication";
 import type ICommandInteraction from "./CommandInteraction";
+import type IComponentInteraction from "./ComponentInteraction";
 import type IModalSubmitInteraction from "./ModalSubmitInteraction";
 import type IPingInteraction from "./PingInteraction";
-import type IComponentInteraction from "./ComponentInteraction";
-import type IAutocompleteInteraction from "./AutocompleteInteraction";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
-import { InteractionTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an interaction. */
 export default class Interaction extends Base {
     /** If this interaction has been acknowledged. */

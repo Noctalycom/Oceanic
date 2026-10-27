@@ -1,19 +1,18 @@
-/** @module Client */
-import type * as Types from "./types/namespaced";
-import RESTManager from "./rest/RESTManager";
-import TypedCollection from "./util/TypedCollection";
-import PrivateChannel from "./structures/PrivateChannel";
-import GroupChannel from "./structures/GroupChannel";
-import User from "./structures/User";
-import Guild from "./structures/Guild";
-import TypedEmitter from "./util/TypedEmitter";
-import type ClientApplication from "./structures/ClientApplication";
 import ShardManager from "./gateway/ShardManager";
+import RESTManager from "./rest/RESTManager";
+import GroupChannel from "./structures/GroupChannel";
+import Guild from "./structures/Guild";
+import PrivateChannel from "./structures/PrivateChannel";
 import UnavailableGuild from "./structures/UnavailableGuild";
-import type ExtendedUser from "./structures/ExtendedUser";
+import User from "./structures/User";
+import Time from "./util/Time";
+import TypedCollection from "./util/TypedCollection";
+import TypedEmitter from "./util/TypedEmitter";
 import Util from "./util/Util";
 import type OAuthHelper from "./rest/OAuthHelper";
-import Time from "./util/Time";
+import type ClientApplication from "./structures/ClientApplication";
+import type ExtendedUser from "./structures/ExtendedUser";
+import type * as Types from "./types/namespaced";
 import type { DiscordGatewayAdapterLibraryMethods, VoiceConnection } from "@discordjs/voice";
 /** The primary class for interfacing with Discord. See {@link Types.Events.ClientEvents | Client Events} for a list of events. */
 export default class Client<E extends Types.Events.ClientEvents = Types.Events.ClientEvents> extends TypedEmitter<E> {
@@ -22,8 +21,8 @@ export default class Client<E extends Types.Events.ClientEvents = Types.Events.C
     /** A key-value mapping of channel IDs to guild IDs. In most cases, every channel listed here should be cached in their respective guild's {@link Guild#channels | channels collection}. */
     channelGuildMap: Map<string, string>;
     groupChannels: TypedCollection<Types.Channels.RawGroupChannel, GroupChannel>;
-    guildShardMap: Map<string, number>;
     guilds: TypedCollection<Types.Guilds.RawGuild, Guild, [rest?: boolean]>;
+    guildShardMap: Map<string, number>;
     options: Types.Client.ClientInstanceOptions;
     privateChannels: TypedCollection<Types.Channels.RawPrivateChannel, PrivateChannel>;
     ready: boolean;

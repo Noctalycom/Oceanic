@@ -1,14 +1,16 @@
 /** @module ThreadChannel */
+import { ChannelTypes } from "../Constants";
+import { UncachedError } from "../util/Errors";
+import TypedCollection from "../util/TypedCollection";
+
 import GuildChannel from "./GuildChannel";
 import Message from "./Message";
-import type User from "./User";
+
 import type Member from "./Member";
 import type Permission from "./Permission";
-import type * as Types from "../types/namespaced";
-import { ChannelTypes } from "../Constants";
+import type User from "./User";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
-import { UncachedError } from "../util/Errors";
+import type * as Types from "../types/namespaced";
 
 /** Represents a guild thread channel. */
 export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = Types.Channels.AnyThreadChannel> extends GuildChannel {
@@ -43,18 +45,24 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         this.ownerID = data.owner_id;
         this.rateLimitPerUser = data.rate_limit_per_user;
         this.threadMetadata = {
-            archiveTimestamp:    new Date(data.thread_metadata.archive_timestamp),
-            archived:            !!data.thread_metadata.archived,
+            archiveTimestamp: new Date(data.thread_metadata.archive_timestamp),
+            archived: data.thread_metadata.archived,
             autoArchiveDuration: data.thread_metadata.auto_archive_duration,
-            createTimestamp:     data.thread_metadata.create_timestamp ? new Date(data.thread_metadata.create_timestamp) : null,
-            locked:              !!data.thread_metadata.locked,
-            invitable:           data.thread_metadata.invitable
+            createTimestamp: data.thread_metadata.create_timestamp ? new Date(data.thread_metadata.create_timestamp) : null,
+            locked: data.thread_metadata.locked,
+            invitable: data.thread_metadata.invitable,
         };
         this.totalMessageSent = 0;
         if (data.type === ChannelTypes.PRIVATE_THREAD && data.thread_metadata.invitable !== undefined) {
-            (this.threadMetadata as Types.Channels.PrivateThreadMetadata).invitable = !!data.thread_metadata.invitable;
+            (this.threadMetadata as Types.Channels.PrivateThreadMetadata).invitable = data.thread_metadata.invitable;
         }
         this.update(data);
+    }
+
+    /** The cached messages in this channel. Lazily allocated on first access. */
+    get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>> {
+        this._messages ??= new TypedCollection(Message<CH>, this.client, this.client.util._getLimit("messages", this.id));
+        return this._messages;
     }
 
     protected override update(data: Partial<Types.Channels.RawThreadChannel>): void {
@@ -72,11 +80,10 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
             } else {
                 this.members[index] = {
                     ...this.members[index],
-                    flags:         data.member.flags,
-                    joinTimestamp: new Date(data.member.join_timestamp)
+                    flags: data.member.flags,
+                    joinTimestamp: new Date(data.member.join_timestamp),
                 };
             }
-
         }
         if (data.member_count !== undefined) {
             this.memberCount = data.member_count;
@@ -93,27 +100,20 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         }
         if (data.thread_metadata !== undefined) {
             this.threadMetadata = {
-                archiveTimestamp:    new Date(data.thread_metadata.archive_timestamp),
-                archived:            !!data.thread_metadata.archived,
+                archiveTimestamp: new Date(data.thread_metadata.archive_timestamp),
+                archived: data.thread_metadata.archived,
                 autoArchiveDuration: data.thread_metadata.auto_archive_duration,
-                createTimestamp:     data.thread_metadata.create_timestamp ? new Date(data.thread_metadata.create_timestamp) : null,
-                locked:              !!data.thread_metadata.locked,
-                invitable:           data.thread_metadata.invitable
+                createTimestamp: data.thread_metadata.create_timestamp ? new Date(data.thread_metadata.create_timestamp) : null,
+                locked: data.thread_metadata.locked,
+                invitable: data.thread_metadata.invitable,
             };
             if (data.type === ChannelTypes.PRIVATE_THREAD && data.thread_metadata.invitable !== undefined) {
-                (this.threadMetadata as Types.Channels.PrivateThreadMetadata).invitable = !!data.thread_metadata.invitable;
+                (this.threadMetadata as Types.Channels.PrivateThreadMetadata).invitable = data.thread_metadata.invitable;
             }
-
         }
         if (data.total_message_sent !== undefined) {
             this.totalMessageSent = data.total_message_sent;
         }
-    }
-
-    /** The cached messages in this channel. Lazily allocated on first access. */
-    get messages(): TypedCollection<Types.Channels.RawMessage, Message<CH>> {
-        this._messages ??= new TypedCollection(Message<CH>, this.client, this.client.util._getLimit("messages", this.id));
-        return this._messages;
     }
 
     /**
@@ -139,7 +139,7 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         if (typeof content === "string") {
             options = {
                 ...options,
-                content
+                content,
             };
         } else options = content;
         return this.client.rest.channels.createMessage<CH>(this.id, options);
@@ -208,7 +208,7 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
         if (typeof content === "string") {
             options = {
                 ...options,
-                content
+                content,
             };
         } else options = content;
         return this.client.rest.channels.editMessage<CH>(this.id, messageID, options);
@@ -339,16 +339,16 @@ export default class ThreadChannel<CH extends Types.Channels.AnyThreadChannel = 
     override toJSON(): Types.JSON.JSONThreadChannel {
         return {
             ...super.toJSON(),
-            flags:            this.flags,
-            lastMessageID:    this.lastMessageID,
-            memberCount:      this.memberCount,
-            messageCount:     this.messageCount,
-            messages:         this._messages?.map(m => m.id) ?? [],
-            ownerID:          this.ownerID,
+            flags: this.flags,
+            lastMessageID: this.lastMessageID,
+            memberCount: this.memberCount,
+            messageCount: this.messageCount,
+            messages: this._messages?.map(m => m.id) ?? [],
+            ownerID: this.ownerID,
             rateLimitPerUser: this.rateLimitPerUser,
-            threadMetadata:   this.threadMetadata,
+            threadMetadata: this.threadMetadata,
             totalMessageSent: this.totalMessageSent,
-            type:             this.type
+            type: this.type,
         };
     }
 

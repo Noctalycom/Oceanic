@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /** @module DiscordRESTError */
-import type * as Types from "../types/namespaced";
 import type { RESTMethod } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** A REST error received from Discord. */
 export default class DiscordRESTError extends Error {
     code: number;

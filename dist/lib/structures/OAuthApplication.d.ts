@@ -1,11 +1,10 @@
-/** @module OAuthApplication */
-import type User from "./User";
+import Base from "./Base";
 import Team from "./Team";
 import type Guild from "./Guild";
-import Base from "./Base";
-import type * as Types from "../types/namespaced";
+import type User from "./User";
 import type Client from "../Client";
 import type { ApplicationIntegrationTypes, ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an oauth application. */
 export default class OAuthApplication extends Base {
     private _cachedGuild?;
@@ -58,9 +57,9 @@ export default class OAuthApplication extends Base {
     /** The bot's hex encoded public key. */
     verifyKey: string;
     constructor(data: Types.Applications.RESTOAuthApplication, client: Client);
-    protected update(data: Partial<Types.Applications.RESTOAuthApplication>): void;
     /** If this application is a game sold on Discord, the guild to which it has been linked. This will throw an error if the guild is not cached. */
     get guild(): Guild | null;
+    protected update(data: Partial<Types.Applications.RESTOAuthApplication>): void;
     /**
      * The url of this application's cover image.
      * @param format The format the url should be.

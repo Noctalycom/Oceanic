@@ -1,9 +1,9 @@
 import Base from "./Base";
-import type TestEntitlement from "./TestEntitlement";
 import type Entitlement from "./Entitlement";
-import type * as Types from "../types/namespaced";
+import type TestEntitlement from "./TestEntitlement";
 import type Client from "../Client";
 import type { EntitlementOwnerTypes, SKUAccessTypes, SKUTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 export default class SKU extends Base {
     accessType: SKUAccessTypes;
     applicationID: string;

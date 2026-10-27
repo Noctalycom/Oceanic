@@ -1,8 +1,7 @@
-/** @module PartialApplication */
 import Base from "./Base";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a partial application. */
 export default class PartialApplication extends Base {
     /** When false, only the application's owners can invite the bot to guilds. */
@@ -18,7 +17,7 @@ export default class PartialApplication extends Base {
     /** The bot's hex encoded public key. */
     verifyKey?: string;
     constructor(data: Types.Applications.RawPartialApplication, client: Client);
-    protected update(data: Types.Applications.RawPartialApplication): void;
+    protected update(data: Partial<Types.Applications.RawPartialApplication>): void;
     /**
      * The url of this application's icon.
      * @param format The format the url should be.

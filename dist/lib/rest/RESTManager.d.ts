@@ -1,16 +1,16 @@
 /** @module RESTManager */
-import RequestHandler from "./RequestHandler";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
+import Applications from "../routes/Applications";
 import Channels from "../routes/Channels";
 import Guilds from "../routes/Guilds";
-import Users from "../routes/Users";
-import OAuth from "../routes/OAuth";
-import Webhooks from "../routes/Webhooks";
-import Applications from "../routes/Applications";
 import Interactions from "../routes/Interactions";
-import Miscellaneous from "../routes/Miscellaneous";
 import Lobbies from "../routes/Lobbies";
+import Miscellaneous from "../routes/Miscellaneous";
+import OAuth from "../routes/OAuth";
+import Users from "../routes/Users";
+import Webhooks from "../routes/Webhooks";
+import RequestHandler from "./RequestHandler";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** A manager for all rest actions. */
 export default class RESTManager {
     private _client;

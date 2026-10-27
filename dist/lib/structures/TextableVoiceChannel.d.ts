@@ -1,11 +1,11 @@
 /** @module TextableVoiceChannel */
+import TypedCollection from "../util/TypedCollection";
 import Member from "./Member";
 import TextableChannel from "./TextableChannel";
 import type VoiceState from "./VoiceState";
-import type * as Types from "../types/namespaced";
-import type { VideoQualityModes } from "../Constants";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
+import type { VideoQualityModes } from "../Constants";
+import type * as Types from "../types/namespaced";
 import type { VoiceConnection } from "@discordjs/voice";
 /** Represents a textable voice channel. */
 export default class TextableVoiceChannel<T extends Types.Channels.AnyVoiceChannel = Types.Channels.AnyVoiceChannel> extends TextableChannel<T> {
@@ -20,9 +20,9 @@ export default class TextableVoiceChannel<T extends Types.Channels.AnyVoiceChann
     videoQualityMode: VideoQualityModes;
     voiceMembers: TypedCollection<Types.Guilds.RawMember, Member, [guildID: string]>;
     constructor(data: Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel, client: Client);
-    protected update(data: Partial<Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel>): void;
     /** The voice states related to this channel. */
     get voiceStates(): Array<VoiceState<T>>;
+    protected update(data: Partial<Types.Channels.RawVoiceChannel | Types.Channels.RawStageChannel>): void;
     /**
      * Join this stage channel.
      * @param options The options to join the channel with.

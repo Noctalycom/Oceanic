@@ -1,9 +1,5 @@
 /// <reference types="node" />
 /// <reference types="node" />
-/** @module REST/Guilds */
-import type * as Types from "../types/namespaced";
-import type { ChannelTypeMap } from "../Constants";
-import type RESTManager from "../rest/RESTManager";
 import AutoModerationRule from "../structures/AutoModerationRule";
 import Guild from "../structures/Guild";
 import GuildPreview from "../structures/GuildPreview";
@@ -11,10 +7,13 @@ import GuildScheduledEvent from "../structures/GuildScheduledEvent";
 import GuildTemplate from "../structures/GuildTemplate";
 import Integration from "../structures/Integration";
 import { type InviteWithMetadata } from "../structures/Invite";
-import type Member from "../structures/Member";
 import Role from "../structures/Role";
 import Soundboard from "../structures/Soundboard";
 import VoiceState from "../structures/VoiceState";
+import type { ChannelTypeMap } from "../Constants";
+import type RESTManager from "../rest/RESTManager";
+import type Member from "../structures/Member";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with guilds. Located at {@link Client#rest | Client#rest}{@link RESTManager#guilds | .guilds}. */
 export default class Guilds {
     private _manager;
@@ -547,6 +546,14 @@ export default class Guilds {
      */
     getScheduledEventExceptionUsers(guildID: string, eventID: string, exceptionID: string, options?: Types.ScheduledEvents.GetScheduledEventUsersOptions): Promise<Array<Types.ScheduledEvents.ScheduledEventUser>>;
     /**
+     * Get a guild's scheduled events.
+     * @param guildID The ID of the guild.
+     * @param withUserCount If the number of users subscribed to the event should be included.
+     * @caching This method **may** cache its result. The result will not be cached if the guild is not cached.
+     * @caches {@link Guild#scheduledEvents | Guild#scheduledEvents}
+     */
+    getScheduledEvents(guildID: string, withUserCount?: number): Promise<Array<GuildScheduledEvent>>;
+    /**
      * Get user counts for a scheduled event and optionally specific exceptions.
      * @param guildID The ID of the guild.
      * @param eventID The ID of the scheduled event.
@@ -564,14 +571,6 @@ export default class Guilds {
      * @caches {@link Client#users | Client#users}<br>{@link Guild#members | Guild#members}
      */
     getScheduledEventUsers(guildID: string, eventID: string, options?: Types.ScheduledEvents.GetScheduledEventUsersOptions): Promise<Array<Types.ScheduledEvents.ScheduledEventUser>>;
-    /**
-     * Get a guild's scheduled events.
-     * @param guildID The ID of the guild.
-     * @param withUserCount If the number of users subscribed to the event should be included.
-     * @caching This method **may** cache its result. The result will not be cached if the guild is not cached.
-     * @caches {@link Guild#scheduledEvents | Guild#scheduledEvents}
-     */
-    getScheduledEvents(guildID: string, withUserCount?: number): Promise<Array<GuildScheduledEvent>>;
     /**
      * Get a soundboard sound.
      * @param guildID The ID of the guild.

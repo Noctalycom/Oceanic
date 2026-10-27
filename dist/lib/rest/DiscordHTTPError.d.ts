@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import type * as Types from "../types/namespaced";
 import type { RESTMethod } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** An HTTP error received from Discord. */
 export default class DiscordHTTPError extends Error {
     method: RESTMethod;

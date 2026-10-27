@@ -1,8 +1,9 @@
-import type RESTManager from "../rest/RESTManager";
-import type * as Types from "../types/namespaced";
-import type { CreateLobbyOptions, AddLobbyMemberOptions, EditLobbyOptions } from "../types/lobbies";
+/** @module REST/Channels */
 import Lobby from "../structures/Lobby";
 import LobbyMember from "../structures/LobbyMember";
+import type RESTManager from "../rest/RESTManager";
+import type { CreateLobbyOptions, AddLobbyMemberOptions, EditLobbyOptions } from "../types/lobbies";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with lobbies. Located at {@link Client#rest | Client#rest}{@link RESTManager#lobbies | .lobbies}. */
 export default class Lobbies {
     private _manager;

@@ -1,13 +1,14 @@
-import type * as Types from "../types/namespaced";
-import ApplicationCommand from "../structures/ApplicationCommand";
-import type RESTManager from "../rest/RESTManager";
-import SKU from "../structures/SKU";
-import type Entitlement from "../structures/Entitlement";
-import TestEntitlement from "../structures/TestEntitlement";
-import ClientApplication from "../structures/ClientApplication";
+/** @module REST/ApplicationCommands */
 import Application from "../structures/Application";
-import Subscription from "../structures/Subscription";
+import ApplicationCommand from "../structures/ApplicationCommand";
 import Attachment from "../structures/Attachment";
+import ClientApplication from "../structures/ClientApplication";
+import SKU from "../structures/SKU";
+import Subscription from "../structures/Subscription";
+import TestEntitlement from "../structures/TestEntitlement";
+import type RESTManager from "../rest/RESTManager";
+import type Entitlement from "../structures/Entitlement";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with application commands. Located at {@link Client#rest | Client#rest}{@link RESTManager#applications | .applications}. */
 export default class Applications {
     private _manager;
@@ -229,6 +230,11 @@ export default class Applications {
      */
     getGuildPermissions(applicationID: string, guildID: string): Promise<Array<Types.Applications.RESTGuildApplicationCommandPermissions>>;
     /**
+     * Get the SKUs for an application.
+     * @param applicationID The ID of the application to get the SKUs of.
+     */
+    getSKUs(applicationID: string): Promise<Array<SKU>>;
+    /**
      * Get the subscription for an SKU.
      * @param skuID The ID of the SKU to get the subscription of.
      * @param subscriptionID The ID of the subscription to get.
@@ -240,11 +246,6 @@ export default class Applications {
      * @param options The options for getting the subscriptions.
      */
     getSKUSubscriptions(skuID: string, options: Types.Applications.SearchSKUSubscriptions): Promise<Array<Subscription>>;
-    /**
-     * Get the SKUs for an application.
-     * @param applicationID The ID of the application to get the SKUs of.
-     */
-    getSKUs(applicationID: string): Promise<Array<SKU>>;
     /**
      * Upload an ephemeral attachment for an application.
      *

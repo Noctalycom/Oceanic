@@ -21,5 +21,5 @@ export default class SequentialBucket {
      * @param func The function to queue.
      * @param priority- If true, the item will be added to the front of the queue/
      */
-    queue(func: (cb: () => void) => void, priority?: boolean): void;
+    queue(func: (cb: () => void) => unknown, priority?: boolean): void;
 }

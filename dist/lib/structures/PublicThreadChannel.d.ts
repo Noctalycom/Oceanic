@@ -1,8 +1,8 @@
 /** @module PublicThreadChannel */
 import ThreadChannel from "./ThreadChannel";
-import type * as Types from "../types/namespaced";
-import type { ChannelTypes } from "../Constants";
 import type Client from "../Client";
+import type { ChannelTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a public thread channel. */
 export default class PublicThreadChannel extends ThreadChannel<PublicThreadChannel> {
     /** the IDs of the set of tags that have been applied to this thread. Forum channel threads only.  */

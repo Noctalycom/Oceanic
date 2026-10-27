@@ -1,12 +1,12 @@
 /** @module User */
-import Base from "./Base";
-import type PrivateChannel from "./PrivateChannel";
-import type Entitlement from "./Entitlement";
-import type TestEntitlement from "./TestEntitlement";
-import PrimaryGuild from "./PrimaryGuild";
-import type * as Types from "../types/namespaced";
 import { type ImageFormat, type PremiumTypes } from "../Constants";
+import Base from "./Base";
+import PrimaryGuild from "./PrimaryGuild";
+import type Entitlement from "./Entitlement";
+import type PrivateChannel from "./PrivateChannel";
+import type TestEntitlement from "./TestEntitlement";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a user. */
 export default class User extends Base {
     /** The user's avatar hash. */
@@ -26,7 +26,6 @@ export default class User extends Base {
     /** The user's username. */
     username: string;
     constructor(data: Types.Users.RawUser, client: Client);
-    protected update(data: Partial<Types.Users.RawUser>): void;
     /**
      * The primary guild this user is in.
      * @deprecated Use {@link primaryGuild}
@@ -40,6 +39,7 @@ export default class User extends Base {
     get mention(): string;
     /** This user's unique username, if migrated, else a combination of the user's username and discriminator. */
     get tag(): string;
+    protected update(data: Partial<Types.Users.RawUser>): void;
     /**
      * The url of this user's avatar decoration. This will always be a png.
      * Discord does not combine the decoration and their current avatar for you. This is ONLY the decoration.

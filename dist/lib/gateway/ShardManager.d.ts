@@ -1,9 +1,8 @@
-/** @module ShardManager */
-import Shard from "./Shard";
-import Dispatcher from "./Dispatcher";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
 import Collection from "../util/Collection";
+import Dispatcher from "./Dispatcher";
+import Shard from "./Shard";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** A manager for all the client's shards. */
 export default class ShardManager extends Collection<number, Shard> {
     private _buckets;

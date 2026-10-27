@@ -1,11 +1,11 @@
 /** @module ApplicationCommand */
+import { ApplicationCommandTypes, type InteractionContextTypes, type ApplicationIntegrationTypes, type EntryPointCommandHandlerTypes } from "../Constants";
 import Base from "./Base";
 import Permission from "./Permission";
-import type Guild from "./Guild";
 import type ClientApplication from "./ClientApplication";
-import type * as Types from "../types/namespaced";
+import type Guild from "./Guild";
 import type Client from "../Client";
-import { ApplicationCommandTypes, type InteractionContextTypes, type ApplicationIntegrationTypes, type EntryPointCommandHandlerTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an application command. */
 export default class ApplicationCommand<T extends ApplicationCommandTypes = ApplicationCommandTypes> extends Base {
     private _cachedGuild?;

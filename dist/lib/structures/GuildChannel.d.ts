@@ -1,8 +1,7 @@
-/** @module GuildChannel */
 import Channel from "./Channel";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild channel. */
 export default class GuildChannel extends Channel {
     private _cachedGuild?;
@@ -15,7 +14,6 @@ export default class GuildChannel extends Channel {
     parentID: string | null;
     type: Types.Channels.GuildChannels;
     constructor(data: Types.Channels.RawGuildChannel, client: Client);
-    protected update(data: Partial<Types.Channels.RawGuildChannel>): void;
     /** The guild associated with this channel. This will throw an error if the guild is not cached. */
     get guild(): Guild;
     /**
@@ -27,6 +25,7 @@ export default class GuildChannel extends Channel {
      * @returns If undefined, no attempt was made to resolve the parent channel. If null, the parent channel was attempted to be resolved but was not found in the client's cache.
      */
     get parent(): Types.Channels.ParentChannelType<this> | null | undefined;
+    protected update(data: Partial<Types.Channels.RawGuildChannel>): void;
     /**
      * Edit this channel.
      * @param options The options for editing the channel.

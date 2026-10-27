@@ -1,35 +1,35 @@
 /// <reference types="node" />
 /// <reference types="node" />
 /** @module Guild */
-import Role from "./Role";
+import { type DefaultMessageNotificationLevels, type ExplicitContentFilterLevels, type GuildFeature, type GuildNSFWLevels, type ImageFormat, type MFALevels, type PremiumTiers, type VerificationLevels, type ChannelTypeMap } from "../Constants";
+import SimpleCollection from "../util/SimpleCollection";
+import TypedCollection from "../util/TypedCollection";
+import AuditLogEntry from "./AuditLogEntry";
+import AutoModerationRule from "./AutoModerationRule";
 import Base from "./Base";
-import Member from "./Member";
-import GuildScheduledEvent from "./GuildScheduledEvent";
 import GuildJoinRequest from "./GuildJoinRequest";
+import GuildScheduledEvent from "./GuildScheduledEvent";
+import Integration from "./Integration";
+import { type InviteWithMetadata } from "./Invite";
+import Member from "./Member";
+import Permission from "./Permission";
+import Role from "./Role";
+import Soundboard from "./Soundboard";
+import StageInstance from "./StageInstance";
+import VoiceState from "./VoiceState";
+import type CategoryChannel from "./CategoryChannel";
+import type ClientApplication from "./ClientApplication";
+import type Entitlement from "./Entitlement";
+import type GuildPreview from "./GuildPreview";
+import type GuildTemplate from "./GuildTemplate";
+import type TestEntitlement from "./TestEntitlement";
+import type TextChannel from "./TextChannel";
 import type User from "./User";
 import type VoiceChannel from "./VoiceChannel";
-import type ClientApplication from "./ClientApplication";
-import type TextChannel from "./TextChannel";
-import type CategoryChannel from "./CategoryChannel";
-import Integration from "./Integration";
-import AutoModerationRule from "./AutoModerationRule";
-import Permission from "./Permission";
-import VoiceState from "./VoiceState";
-import StageInstance from "./StageInstance";
-import type GuildTemplate from "./GuildTemplate";
-import type GuildPreview from "./GuildPreview";
-import { type InviteWithMetadata } from "./Invite";
 import type Webhook from "./Webhook";
-import AuditLogEntry from "./AuditLogEntry";
-import type Entitlement from "./Entitlement";
-import type TestEntitlement from "./TestEntitlement";
-import Soundboard from "./Soundboard";
-import type * as Types from "../types/namespaced";
-import { type DefaultMessageNotificationLevels, type ExplicitContentFilterLevels, type GuildFeature, type GuildNSFWLevels, type ImageFormat, type MFALevels, type PremiumTiers, type VerificationLevels, type ChannelTypeMap } from "../Constants";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
 import type Shard from "../gateway/Shard";
-import SimpleCollection from "../util/SimpleCollection";
+import type * as Types from "../types/namespaced";
 import type { DiscordGatewayAdapterCreator, VoiceConnection } from "@discordjs/voice";
 /** Represents a Discord server. */
 export default class Guild extends Base {
@@ -79,10 +79,10 @@ export default class Guild extends Base {
     inventorySettings: Types.Guilds.InventorySettings | null;
     /** The cached invites in this guild. This will only be populated by invites created while the client is active. */
     invites: SimpleCollection<string, Types.Invites.RawInvite, InviteWithMetadata<Types.Channels.AnyGuildInviteChannel>, "code">;
-    /** The cached join requests in this guild. This will be empty unless join requests have been fetched. */
-    joinRequests: TypedCollection<Types.Guilds.RawGuildJoinRequest, GuildJoinRequest>;
     /** The date at which this guild was joined. */
     joinedAt: Date | null;
+    /** The cached join requests in this guild. This will be empty unless join requests have been fetched. */
+    joinRequests: TypedCollection<Types.Guilds.RawGuildJoinRequest, GuildJoinRequest>;
     /** If this guild is considered large. */
     large: boolean;
     latestOnboardingQuestionID: string | null;
@@ -169,15 +169,15 @@ export default class Guild extends Base {
     /** If the widget is enabled. */
     widgetEnabled?: boolean;
     constructor(data: Types.Guilds.RawGuild, client: Client, rest?: boolean);
-    private toggleFeature;
-    private updateMemberLimit;
-    protected update(data: Partial<Types.Guilds.RawGuild>): void;
     /** The client's member for this guild. This will throw an error if the member is not cached. */
     get clientMember(): Member;
     /** The shard this guild is on. Gateway only. */
     get shard(): Shard;
     /** The voice adapter creator for this guild that can be used with [@discordjs/voice](https://discord.js.org/#/docs/voice/main/general/welcome) to play audio in voice and stage channels. */
     get voiceAdapterCreator(): DiscordGatewayAdapterCreator;
+    private toggleFeature;
+    private updateMemberLimit;
+    protected update(data: Partial<Types.Guilds.RawGuild>): void;
     /**
      * Accept or deny a join request for this guild.
      * @param requestID The ID of the join request.
@@ -610,6 +610,11 @@ export default class Guild extends Base {
      */
     getScheduledEventExceptionUsers(eventID: string, exceptionID: string, options?: Types.ScheduledEvents.GetScheduledEventUsersOptions): Promise<Array<Types.ScheduledEvents.ScheduledEventUser>>;
     /**
+     * Get this guild's scheduled events
+     * @param withUserCount If the number of users subscribed to the event should be included.
+     */
+    getScheduledEvents(withUserCount?: number): Promise<Array<GuildScheduledEvent>>;
+    /**
      * Get user counts for a scheduled event and optionally specific exceptions.
      * @param eventID The ID of the scheduled event.
      * @param options The options for getting the user counts.
@@ -625,11 +630,6 @@ export default class Guild extends Base {
      * @caches {@link Client#users | Client#users}<br>{@link Guild#members | Guild#members}
      */
     getScheduledEventUsers(eventID: string, options?: Types.ScheduledEvents.GetScheduledEventUsersOptions): Promise<Array<Types.ScheduledEvents.ScheduledEventUser>>;
-    /**
-     * Get this guild's scheduled events
-     * @param withUserCount If the number of users subscribed to the event should be included.
-     */
-    getScheduledEvents(withUserCount?: number): Promise<Array<GuildScheduledEvent>>;
     /**
      * Get a soundboard sound.
      * @param soundID The ID of the soundboard sound to get.

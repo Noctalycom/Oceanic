@@ -1,14 +1,16 @@
 /** @module Member */
+import { UncachedError } from "../util/Errors";
+import * as Routes from "../util/Routes";
+
 import Base from "./Base";
-import type User from "./User";
+
+import type { ImageFormat } from "../Constants";
 import type Guild from "./Guild";
 import type Permission from "./Permission";
+import type User from "./User";
 import type VoiceState from "./VoiceState";
-import type * as Types from "../types/namespaced";
-import type { ImageFormat } from "../Constants";
-import * as Routes from "../util/Routes";
 import type Client from "../Client";
-import { UncachedError } from "../util/Errors";
+import type * as Types from "../types/namespaced";
 
 /** Represents a member of a guild. */
 export default class Member extends Base {
@@ -29,7 +31,7 @@ export default class Member extends Base {
     roles: Array<string>;
     /** The user associated with this member. */
     user: User;
-    constructor(data: (Types.Guilds.RawMember | Types.Guilds.RESTMember) & { id?: string; }, client: Client, guildID: string) {
+    constructor(data: (Types.Guilds.RawMember | Types.Guilds.RESTMember) & { id?: string }, client: Client, guildID: string) {
         let user: User | undefined;
         let id: string | undefined;
         if (!data.user && data.id) {
@@ -52,34 +54,13 @@ export default class Member extends Base {
         this.update(data);
     }
 
-    protected override update(data: Partial<Types.Guilds.RawMember | Types.Guilds.RESTMember>): void {
-        this.lastSeen = Date.now();
-        if (data.avatar !== undefined) {
-            this.avatar = data.avatar;
-        }
-        if (data.communication_disabled_until !== undefined) {
-            this.communicationDisabledUntil = data.communication_disabled_until === null ? null : new Date(data.communication_disabled_until);
-        }
-        if (data.joined_at !== undefined) {
-            this.joinedAt = data.joined_at === null ? null : new Date(data.joined_at);
-        }
-        if (data.nick !== undefined) {
-            this.nick = data.nick;
-        }
-        if (data.roles !== undefined) {
-            this.roles = data.roles;
-        }
-        if (data.user !== undefined) {
-            this.user = this.client.users.update(data.user);
-        }
-    }
-
     /** If the user associated with this member is a bot. */
     get bot(): boolean {
         return this.user.bot;
     }
 
     /** The discriminator of the user associated with this member. Discriminators are no longer cached, so this is always "0". */
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
     get discriminator(): string {
         return "0";
     }
@@ -123,6 +104,7 @@ export default class Member extends Base {
     }
 
     /** If this user associated with this member is an official discord system user. System users are no longer cached, so this is always false. */
+    // eslint-disable-next-line @typescript-eslint/class-literal-property-style
     get system(): boolean {
         return false;
     }
@@ -140,6 +122,28 @@ export default class Member extends Base {
     /** The voice state of this member. */
     get voiceState(): VoiceState | null {
         return this.guild.voiceStates.get(this.id) ?? null;
+    }
+
+    protected override update(data: Partial<Types.Guilds.RawMember | Types.Guilds.RESTMember>): void {
+        this.lastSeen = Date.now();
+        if (data.avatar !== undefined) {
+            this.avatar = data.avatar;
+        }
+        if (data.communication_disabled_until !== undefined) {
+            this.communicationDisabledUntil = data.communication_disabled_until === null ? null : new Date(data.communication_disabled_until);
+        }
+        if (data.joined_at !== undefined) {
+            this.joinedAt = data.joined_at === null ? null : new Date(data.joined_at);
+        }
+        if (data.nick !== undefined) {
+            this.nick = data.nick;
+        }
+        if (data.roles !== undefined) {
+            this.roles = data.roles;
+        }
+        if (data.user !== undefined) {
+            this.user = this.client.users.update(data.user);
+        }
     }
 
     /**
@@ -221,13 +225,13 @@ export default class Member extends Base {
     override toJSON(): Types.JSON.JSONMember {
         return {
             ...super.toJSON(),
-            avatar:                     this.avatar,
+            avatar: this.avatar,
             communicationDisabledUntil: this.communicationDisabledUntil?.getTime() ?? null,
-            guildID:                    this.guildID,
-            joinedAt:                   this.joinedAt?.getTime() ?? null,
-            nick:                       this.nick,
-            roles:                      this.roles,
-            user:                       this.user.toJSON()
+            guildID: this.guildID,
+            joinedAt: this.joinedAt?.getTime() ?? null,
+            nick: this.nick,
+            roles: this.roles,
+            user: this.user.toJSON(),
         };
     }
 

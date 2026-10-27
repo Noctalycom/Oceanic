@@ -1,7 +1,7 @@
 /** @module UnavailableGuild */
 import Base from "./Base";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild that is unavailable. */
 export default class UnavailableGuild extends Base {
     unavailable: true;

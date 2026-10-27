@@ -1,10 +1,9 @@
-/** @module OAuthGuild */
 import Base from "./Base";
 import Permission from "./Permission";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
-import type { GuildFeature, ImageFormat } from "../Constants";
 import type Client from "../Client";
+import type { GuildFeature, ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild retrieved via oauth. */
 export default class OAuthGuild extends Base {
     private _cachedCompleteGuild?;

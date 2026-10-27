@@ -1,11 +1,11 @@
 /** @module PrivateChannel */
-import Channel from "./Channel";
-import type User from "./User";
-import Message from "./Message";
-import type * as Types from "../types/namespaced";
-import type { ChannelTypes } from "../Constants";
-import type Client from "../Client";
 import TypedCollection from "../util/TypedCollection";
+import Channel from "./Channel";
+import Message from "./Message";
+import type User from "./User";
+import type Client from "../Client";
+import type { ChannelTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a direct message with a user. */
 export default class PrivateChannel extends Channel {
     /** The last message sent in this channel. This will only be present if a message has been sent within the current session. */

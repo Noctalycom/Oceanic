@@ -1,8 +1,8 @@
 import Base from "./Base";
 import type Guild from "./Guild";
 import type User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild join request. */
 export default class GuildJoinRequest extends Base {
     private _createdAt;

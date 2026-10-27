@@ -1,14 +1,14 @@
 /// <reference types="node" />
 /// <reference types="node" />
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
 import { type ImageFormat, type PrivilegedIntentNames } from "../Constants";
+import Entitlement from "../structures/Entitlement";
 import Member from "../structures/Member";
 import Message from "../structures/Message";
-import Entitlement from "../structures/Entitlement";
-import TestEntitlement from "../structures/TestEntitlement";
-import type Poll from "../structures/Poll";
 import Subscription from "../structures/Subscription";
+import TestEntitlement from "../structures/TestEntitlement";
+import type Client from "../Client";
+import type Poll from "../structures/Poll";
+import type * as Types from "../types/namespaced";
 /** A general set of utilities. These are intentionally poorly documented, as they serve almost no usefulness to outside developers. */
 export default class Util {
     private _client;
@@ -34,10 +34,10 @@ export default class Util {
     /** @hidden intended for internal use only */
     _isModuleInstalled(name: string): boolean;
     _setLimit(values?: Record<string, number> | number, defaultValue?: number): Record<string, number> | number;
-    componentToParsed<T extends Types.Channels.RawComponent>(component: T): Types.Channels.ToComponentFromRaw<T>;
-    componentToRaw<T extends Types.Channels.Component>(component: T): Types.Channels.ToRawFromComponent<T>;
     componentsToParsed<T extends Types.Channels.AnyRawBaseComponent>(components: Array<T>): Array<Types.Channels.ToComponentFromRaw<T>>;
     componentsToRaw<T extends Types.Channels.MessageComponent | Types.Channels.ModalComponent>(components: Array<T>): Array<T extends Types.Channels.MessageComponent ? Types.Channels.RawMessageComponent : T extends Types.Channels.ModalComponent ? Types.Channels.RawModalComponent : never>;
+    componentToParsed<T extends Types.Channels.RawComponent>(component: T): Types.Channels.ToComponentFromRaw<T>;
+    componentToRaw<T extends Types.Channels.Component>(component: T): Types.Channels.ToRawFromComponent<T>;
     convertApplicationEmoji(raw: Types.Applications.RawApplicationEmoji): Types.Applications.ApplicationEmoji;
     convertGuildEmoji(raw: Types.Guilds.RawGuildEmoji): Types.Guilds.GuildEmoji;
     convertImage(img: Buffer | string): string;

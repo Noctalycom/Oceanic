@@ -1,8 +1,8 @@
-import type * as Types from "../../types/namespaced";
+import type Attachment from "../../structures/Attachment";
+import type InteractionResolvedChannel from "../../structures/InteractionResolvedChannel";
 import type Role from "../../structures/Role";
 import type User from "../../structures/User";
-import type InteractionResolvedChannel from "../../structures/InteractionResolvedChannel";
-import type Attachment from "../../structures/Attachment";
+import type * as Types from "../../types/namespaced";
 /** A wrapper for interaction components. */
 export default class ModalSubmitInteractionComponentsWrapper {
     /** The raw components from Discord.  */

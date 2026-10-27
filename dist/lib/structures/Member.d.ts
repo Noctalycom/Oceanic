@@ -1,12 +1,11 @@
-/** @module Member */
 import Base from "./Base";
-import type User from "./User";
+import type { ImageFormat } from "../Constants";
 import type Guild from "./Guild";
 import type Permission from "./Permission";
+import type User from "./User";
 import type VoiceState from "./VoiceState";
-import type * as Types from "../types/namespaced";
-import type { ImageFormat } from "../Constants";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a member of a guild. */
 export default class Member extends Base {
     private _cachedGuild?;
@@ -29,7 +28,6 @@ export default class Member extends Base {
     constructor(data: (Types.Guilds.RawMember | Types.Guilds.RESTMember) & {
         id?: string;
     }, client: Client, guildID: string);
-    protected update(data: Partial<Types.Guilds.RawMember | Types.Guilds.RESTMember>): void;
     /** If the user associated with this member is a bot. */
     get bot(): boolean;
     /** The discriminator of the user associated with this member. Discriminators are no longer cached, so this is always "0". */
@@ -52,6 +50,7 @@ export default class Member extends Base {
     get username(): string;
     /** The voice state of this member. */
     get voiceState(): VoiceState | null;
+    protected update(data: Partial<Types.Guilds.RawMember | Types.Guilds.RESTMember>): void;
     /**
      * Add a role to this member.
      * @param roleID The ID of the role to add.

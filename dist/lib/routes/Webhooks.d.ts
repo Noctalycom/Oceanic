@@ -1,8 +1,8 @@
 /** @module REST/Webhooks */
-import type * as Types from "../types/namespaced";
-import Webhook from "../structures/Webhook";
 import Message from "../structures/Message";
+import Webhook from "../structures/Webhook";
 import type RESTManager from "../rest/RESTManager";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with webhooks. Located at {@link Client#rest | Client#rest}{@link RESTManager#webhooks | .webhooks}. */
 export default class Webhooks {
     private _manager;

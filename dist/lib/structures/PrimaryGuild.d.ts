@@ -1,7 +1,6 @@
-/** @module PrimaryGuild */
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a primary guild. */
 export default class PrimaryGuild {
     /** The badge hash of this clan. */

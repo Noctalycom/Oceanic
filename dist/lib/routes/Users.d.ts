@@ -1,9 +1,9 @@
 /** @module REST/Users */
-import type Channels from "./Channels";
-import type * as Types from "../types/namespaced";
 import ExtendedUser from "../structures/ExtendedUser";
+import type Channels from "./Channels";
 import type RESTManager from "../rest/RESTManager";
 import type User from "../structures/User";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with users. Located at {@link Client#rest | Client#rest}{@link RESTManager#users | .users}. */
 export default class Users {
     private _manager;

@@ -1,17 +1,17 @@
 /** @module ComponentInteraction */
-import Interaction from "./Interaction";
-import Message from "./Message";
-import type Guild from "./Guild";
-import Member from "./Member";
-import Permission from "./Permission";
-import type PrivateChannel from "./PrivateChannel";
-import User from "./User";
-import type Entitlement from "./Entitlement";
-import type TestEntitlement from "./TestEntitlement";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
 import { ComponentTypes, type SelectMenuTypes, type InteractionTypes, type InteractionContextTypes } from "../Constants";
 import MessageInteractionResponse, { type InitialMessagedInteractionResponse, type FollowupMessageInteractionResponse } from "../util/interactions/MessageInteractionResponse";
+import Interaction from "./Interaction";
+import Member from "./Member";
+import Message from "./Message";
+import Permission from "./Permission";
+import User from "./User";
+import type Entitlement from "./Entitlement";
+import type Guild from "./Guild";
+import type PrivateChannel from "./PrivateChannel";
+import type TestEntitlement from "./TestEntitlement";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a component interaction. */
 export default class ComponentInteraction<V extends ComponentTypes.BUTTON | SelectMenuTypes = ComponentTypes.BUTTON | SelectMenuTypes, T extends Types.Channels.AnyInteractionChannel | Types.Shared.Uncached = Types.Channels.AnyInteractionChannel | Types.Shared.Uncached> extends Interaction {
     private _cachedChannel;

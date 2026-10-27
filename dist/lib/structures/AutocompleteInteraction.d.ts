@@ -1,15 +1,15 @@
 /** @module AutocompleteInteraction */
-import Interaction from "./Interaction";
-import type Member from "./Member";
-import type User from "./User";
-import type Guild from "./Guild";
-import Permission from "./Permission";
-import type PrivateChannel from "./PrivateChannel";
-import type Entitlement from "./Entitlement";
-import type TestEntitlement from "./TestEntitlement";
-import type * as Types from "../types/namespaced";
 import { type InteractionTypes, type InteractionContextTypes } from "../Constants";
+import Interaction from "./Interaction";
+import Permission from "./Permission";
+import type Entitlement from "./Entitlement";
+import type Guild from "./Guild";
+import type Member from "./Member";
+import type PrivateChannel from "./PrivateChannel";
+import type TestEntitlement from "./TestEntitlement";
+import type User from "./User";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents an autocomplete interaction. */
 export default class AutocompleteInteraction<T extends Types.Channels.AnyInteractionChannel | Types.Shared.Uncached = Types.Channels.AnyInteractionChannel | Types.Shared.Uncached> extends Interaction {
     private _cachedChannel;

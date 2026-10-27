@@ -1,11 +1,10 @@
-/** @module GuildScheduledEvent */
 import Base from "./Base";
-import type User from "./User";
 import type Guild from "./Guild";
 import type StageChannel from "./StageChannel";
-import type * as Types from "../types/namespaced";
+import type User from "./User";
 import type Client from "../Client";
 import type { ImageFormat, GuildScheduledEventEntityTypes, GuildScheduledEventPrivacyLevels, GuildScheduledEventStatuses } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild scheduled event. */
 export default class GuildScheduledEvent extends Base {
     private _cachedChannel?;
@@ -41,11 +40,11 @@ export default class GuildScheduledEvent extends Base {
     /** The number of users subscribed to the event. */
     userCount: number;
     constructor(data: Types.ScheduledEvents.RawScheduledEvent, client: Client);
-    protected update(data: Partial<Types.ScheduledEvents.RawScheduledEvent>): void;
     /** The channel in which the event will be hosted. `null` if entityType is `EXTERNAL` */
     get channel(): StageChannel | null | undefined;
     /** The guild this scheduled event belongs to. This will throw an error if the guild is not cached. */
     get guild(): Guild;
+    protected update(data: Partial<Types.ScheduledEvents.RawScheduledEvent>): void;
     /**
      * Create an exception to the recurrence rule for this scheduled event.
      * @param options The options for creating the scheduled event exception.

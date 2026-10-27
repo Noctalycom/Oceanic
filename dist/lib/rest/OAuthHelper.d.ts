@@ -1,12 +1,11 @@
-/** @module OAuthHelper */
-import type RESTManager from "./RESTManager";
-import type * as Types from "../types/namespaced";
-import OAuthApplication from "../structures/OAuthApplication";
-import Member from "../structures/Member";
-import OAuthGuild from "../structures/OAuthGuild";
 import ExtendedUser from "../structures/ExtendedUser";
+import Member from "../structures/Member";
+import OAuthApplication from "../structures/OAuthApplication";
+import OAuthGuild from "../structures/OAuthGuild";
+import type RESTManager from "./RESTManager";
 import type Entitlement from "../structures/Entitlement";
 import type TestEntitlement from "../structures/TestEntitlement";
+import type * as Types from "../types/namespaced";
 /** A helper to make using authenticated oauth requests without needing a new client instance. */
 export default class OAuthHelper {
     private _manager;

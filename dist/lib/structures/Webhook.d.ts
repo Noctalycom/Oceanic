@@ -1,12 +1,12 @@
 /** @module Webhook */
-import Base from "./Base";
-import type User from "./User";
-import type Message from "./Message";
-import type Guild from "./Guild";
-import type ClientApplication from "./ClientApplication";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
 import { type ImageFormat, type WebhookTypes } from "../Constants";
+import Base from "./Base";
+import type ClientApplication from "./ClientApplication";
+import type Guild from "./Guild";
+import type Message from "./Message";
+import type User from "./User";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a webhook. */
 export default class Webhook extends Base {
     private _cachedChannel?;

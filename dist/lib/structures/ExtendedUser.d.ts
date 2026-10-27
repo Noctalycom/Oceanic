@@ -1,7 +1,7 @@
 /** @module ExtendedUser */
 import User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents the currently authenticated user. */
 export default class ExtendedUser extends User {
     /** The user's email. (always null for bots) */

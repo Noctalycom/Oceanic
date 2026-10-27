@@ -1,12 +1,11 @@
-/** @module Application */
 import ClientApplication from "./ClientApplication";
 import OAuthGuild from "./OAuthGuild";
-import User from "./User";
-import Team from "./Team";
 import SKU from "./SKU";
+import Team from "./Team";
+import User from "./User";
 import type Client from "../Client";
-import type * as Types from "../types/namespaced";
 import type { ApplicationDiscoverabilityState, ApplicationEventWebhookEventType, ApplicationEventWebhookStatus, ApplicationExplicitContentFilterLevel, ApplicationIntegrationTypes, ApplicationInteractionsVersion, ApplicationInternalGuildRestriction, ApplicationMonetizationState, ApplicationType, ApplicationVerificationState, ApprovableConsoleType, ImageFormat, PricingLocalizationStrategy, RPCApplicationState, StoreApplicationState } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an application. */
 export default class Application extends ClientApplication {
     aliases?: Array<string>;
@@ -52,7 +51,7 @@ export default class Application extends ClientApplication {
     eulaID?: string;
     /** If webhook events are enabled for the app. */
     eventWebhooksStatus?: ApplicationEventWebhookStatus;
-    /**	List of Webhook event types the app subscribes to. */
+    /** List of Webhook event types the app subscribes to. */
     eventWebhooksTypes?: Array<ApplicationEventWebhookEventType>;
     /** Event webhooks URL for the app to receive webhook events. */
     eventWebhooksURL?: string | null;
@@ -118,7 +117,7 @@ export default class Application extends ClientApplication {
     primarySKUID?: string;
     /** A URL to this application's privacy policy. */
     privacyPolicyURL?: string;
-    /** The companies that published the application*/
+    /** The companies that published the application */
     publishers?: Array<Types.Applications.ApplicationCompany>;
     /** The redirect URIs for this application. */
     redirectURIs?: Array<string>;

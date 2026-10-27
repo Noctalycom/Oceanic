@@ -1,8 +1,8 @@
 /** @module Soundboard */
 import Base from "./Base";
 import User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a soundboard. */
 export default class Soundboard extends Base {
     /** If the soundboard sound can be used. */

@@ -1,17 +1,17 @@
 /** @module CommandInteraction */
+import { ApplicationCommandTypes, type InteractionTypes, type InteractionContextTypes } from "../Constants";
+import MessageInteractionResponse, { type FollowupMessageInteractionResponse, type InitialMessagedInteractionResponse } from "../util/interactions/MessageInteractionResponse";
 import Interaction from "./Interaction";
 import Member from "./Member";
 import Message from "./Message";
-import User from "./User";
-import type Guild from "./Guild";
 import Permission from "./Permission";
-import type PrivateChannel from "./PrivateChannel";
+import User from "./User";
 import type Entitlement from "./Entitlement";
+import type Guild from "./Guild";
+import type PrivateChannel from "./PrivateChannel";
 import type TestEntitlement from "./TestEntitlement";
-import type * as Types from "../types/namespaced";
-import { ApplicationCommandTypes, type InteractionTypes, type InteractionContextTypes } from "../Constants";
 import type Client from "../Client";
-import MessageInteractionResponse, { type FollowupMessageInteractionResponse, type InitialMessagedInteractionResponse } from "../util/interactions/MessageInteractionResponse";
+import type * as Types from "../types/namespaced";
 /** Represents a command interaction. */
 export default class CommandInteraction<T extends Types.Channels.AnyInteractionChannel | Types.Shared.Uncached = Types.Channels.AnyInteractionChannel | Types.Shared.Uncached, C extends ApplicationCommandTypes = ApplicationCommandTypes> extends Interaction {
     private _cachedChannel;

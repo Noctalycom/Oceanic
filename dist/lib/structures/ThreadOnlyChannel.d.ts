@@ -1,16 +1,16 @@
 /** @module ThreadOnlyChannel */
-import GuildChannel from "./GuildChannel";
-import PermissionOverwrite from "./PermissionOverwrite";
-import type PublicThreadChannel from "./PublicThreadChannel";
-import type Member from "./Member";
-import Permission from "./Permission";
-import type Webhook from "./Webhook";
-import type { InviteWithMetadata } from "./Invite";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
 import { type SortOrderTypes, type ForumLayoutTypes, type ThreadAutoArchiveDuration } from "../Constants";
 import Collection from "../util/Collection";
+import TypedCollection from "../util/TypedCollection";
+import GuildChannel from "./GuildChannel";
+import Permission from "./Permission";
+import PermissionOverwrite from "./PermissionOverwrite";
+import type { InviteWithMetadata } from "./Invite";
+import type Member from "./Member";
+import type PublicThreadChannel from "./PublicThreadChannel";
+import type Webhook from "./Webhook";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a thread only channel. */
 export default class ThreadOnlyChannel extends GuildChannel {
     /** The usable tags for threads. */
@@ -39,11 +39,11 @@ export default class ThreadOnlyChannel extends GuildChannel {
     topic: string | null;
     type: Types.Channels.ThreadOnlyChannels;
     constructor(data: Types.Channels.RawThreadOnlyChannel, client: Client);
-    protected update(data: Partial<Types.Channels.RawThreadOnlyChannel>): void;
     /** The most recently created thread. */
     get lastThread(): PublicThreadChannel | null;
     /** The threads in this channel. The returned collection is disposable. */
     get threads(): Collection<string, PublicThreadChannel>;
+    protected update(data: Partial<Types.Channels.RawThreadOnlyChannel>): void;
     /**
      * Create an invite for this channel. If the guild is not a `COMMUNITY` server, invites can only be made to last 30 days.
      * @param options The options for the invite.

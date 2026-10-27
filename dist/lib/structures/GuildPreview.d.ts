@@ -1,8 +1,7 @@
-/** @module GuildPreview */
 import Base from "./Base";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { GuildFeature, ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a preview of a guild. */
 export default class GuildPreview extends Base {
     /** The approximate number of members in this guild. */
@@ -26,7 +25,7 @@ export default class GuildPreview extends Base {
     /** The stickers in this guild. */
     stickers: Array<Types.Guilds.RawSticker>;
     constructor(data: Types.Guilds.RawGuildPreview, client: Client);
-    protected update(data: Types.Guilds.RawGuildPreview): void;
+    protected update(data: Partial<Types.Guilds.RawGuildPreview>): void;
     /**
      * The url of this guild's discovery splash.
      * @param format The format the url should be.

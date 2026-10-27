@@ -1,19 +1,19 @@
 /** @module Message */
-import Base from "./Base";
+import { type MessageTypes } from "../Constants";
+import TypedCollection from "../util/TypedCollection";
 import Attachment from "./Attachment";
+import Base from "./Base";
+import Poll from "./Poll";
 import User from "./User";
-import type Guild from "./Guild";
-import type Member from "./Member";
 import type AnnouncementChannel from "./AnnouncementChannel";
 import type AnnouncementThreadChannel from "./AnnouncementThreadChannel";
+import type Guild from "./Guild";
+import type Member from "./Member";
+import type PrivateChannel from "./PrivateChannel";
 import type PublicThreadChannel from "./PublicThreadChannel";
 import type TextChannel from "./TextChannel";
-import type PrivateChannel from "./PrivateChannel";
-import Poll from "./Poll";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
-import { type MessageTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a message. */
 export default class Message<T extends Types.Channels.AnyTextableChannel | Types.Shared.Uncached = Types.Channels.AnyTextableChannel | Types.Shared.Uncached> extends Base {
     private _cachedChannel;
@@ -56,13 +56,13 @@ export default class Message<T extends Types.Channels.AnyTextableChannel | Types
     /** The [type](https://discord.com/developers/docs/resources/channel#message-object-message-types) of this message. */
     type: MessageTypes;
     constructor(data: Types.Channels.RawMessage, client: Client);
-    protected update(data: Partial<Types.Channels.RawMessage>): void;
     /** The channel this message was created in. */
     get channel(): T extends Types.Channels.AnyTextableChannel ? T : undefined;
     /** The guild this message is in. This will throw an error if the guild is not cached. */
     get guild(): T extends Types.Channels.AnyTextableGuildChannel ? Guild : Guild | null;
     /** A link to this message. */
     get jumpLink(): string;
+    protected update(data: Partial<Types.Channels.RawMessage>): void;
     /**
      * Add a reaction to this message.
      * @param emoji The reaction to add to the message. `name:id` for custom emojis, and the unicode codepoint for default emojis.

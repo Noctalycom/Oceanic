@@ -1,11 +1,10 @@
-/** @module GroupChannel */
+import TypedCollection from "../util/TypedCollection";
 import Channel from "./Channel";
 import User from "./User";
 import type ClientApplication from "./ClientApplication";
-import type * as Types from "../types/namespaced";
-import type { ChannelTypes, ImageFormat } from "../Constants";
 import type Client from "../Client";
-import TypedCollection from "../util/TypedCollection";
+import type { ChannelTypes, ImageFormat } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a group direct message. */
 export default class GroupChannel extends Channel {
     /** The application that made this group channel. */

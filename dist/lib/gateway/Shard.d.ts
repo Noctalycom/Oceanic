@@ -1,15 +1,14 @@
 /// <reference types="node" />
-/** @module Shard */
-import type ShardManager from "./ShardManager";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
-import TypedEmitter from "../util/TypedEmitter";
-import Bucket from "../rest/Bucket";
+import { inspect } from "node:util";
+import WebSocket from "ws";
 import { GatewayOPCodes } from "../Constants";
+import Bucket from "../rest/Bucket";
+import TypedEmitter from "../util/TypedEmitter";
+import type ShardManager from "./ShardManager";
+import type Client from "../Client";
 import type Member from "../structures/Member";
 import type Soundboard from "../structures/Soundboard";
-import WebSocket from "ws";
-import { inspect } from "node:util";
+import type * as Types from "../types/namespaced";
 /** Represents a gateway connection to Discord. See {@link Types.Events.ShardEvents | Shard Events} for a list of events. */
 export default class Shard extends TypedEmitter<Types.Events.ShardEvents> {
     private _compressor;
@@ -42,6 +41,7 @@ export default class Shard extends TypedEmitter<Types.Events.ShardEvents> {
     status: Types.Gateway.ShardStatus;
     ws: WebSocket | null;
     constructor(id: number, manager: ShardManager);
+    private get _token();
     private _ready;
     private _resume;
     private checkReady;
@@ -54,7 +54,6 @@ export default class Shard extends TypedEmitter<Types.Events.ShardEvents> {
     private onWSOpen;
     private restartGuildCreateTimeout;
     private sendPresenceUpdate;
-    private get _token();
     /** Connect this shard. */
     connect(): Promise<void>;
     disconnect(reconnect?: boolean, error?: Error): void;

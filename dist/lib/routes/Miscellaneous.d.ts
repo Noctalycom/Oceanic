@@ -1,7 +1,7 @@
 /** @module REST/Miscellaneous */
-import type * as Types from "../types/namespaced";
-import type RESTManager from "../rest/RESTManager";
 import Soundboard from "../structures/Soundboard";
+import type RESTManager from "../rest/RESTManager";
+import type * as Types from "../types/namespaced";
 /** Methods that don't fit anywhere else. Located at {@link Client#rest | Client#rest}{@link RESTManager#misc | .misc}. */
 export default class Miscellaneous {
     private _manager;

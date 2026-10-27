@@ -1,9 +1,11 @@
 /** @module Role */
-import Base from "./Base";
-import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
-import type Client from "../Client";
 import { UncachedError } from "../util/Errors";
+
+import Base from "./Base";
+
+import type Guild from "./Guild";
+import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 
 /** Represents a role in a guild. */
 export default class Role extends Base {
@@ -29,33 +31,12 @@ export default class Role extends Base {
         this.color = data.color;
         this.guildID = guildID;
         this.icon = null;
-        this.managed = !!data.managed;
+        this.managed = data.managed;
         this.name = data.name;
         this.permissionsAllow = BigInt(data.permissions);
         this.position = data.position;
         this.secondaryColor = data.colors.secondary_color ?? 0;
         this.update(data);
-    }
-
-    protected override update(data: Partial<Types.Guilds.RawRole>): void {
-        if (data.color !== undefined) {
-            this.color = data.color;
-        }
-        if (data.colors !== undefined) {
-            this.secondaryColor = data.colors.secondary_color ?? 0;
-        }
-        if (data.icon !== undefined) {
-            this.icon = data.icon ?? null;
-        }
-        if (data.name !== undefined) {
-            this.name = data.name;
-        }
-        if (data.permissions !== undefined) {
-            this.permissionsAllow = BigInt(data.permissions);
-        }
-        if (data.position !== undefined) {
-            this.position = data.position;
-        }
     }
 
     /** The guild this role is in. This will throw an error if the guild is not cached. */
@@ -81,6 +62,27 @@ export default class Role extends Base {
         return `<@&${this.id}>`;
     }
 
+    protected override update(data: Partial<Types.Guilds.RawRole>): void {
+        if (data.color !== undefined) {
+            this.color = data.color;
+        }
+        if (data.colors !== undefined) {
+            this.secondaryColor = data.colors.secondary_color ?? 0;
+        }
+        if (data.icon !== undefined) {
+            this.icon = data.icon ?? null;
+        }
+        if (data.name !== undefined) {
+            this.name = data.name;
+        }
+        if (data.permissions !== undefined) {
+            this.permissionsAllow = BigInt(data.permissions);
+        }
+        if (data.position !== undefined) {
+            this.position = data.position;
+        }
+    }
+
     /**
      * Delete this role.
      * @param reason The reason for deleting the role.
@@ -100,15 +102,15 @@ export default class Role extends Base {
     override toJSON(): Types.JSON.JSONRole {
         return {
             ...super.toJSON(),
-            color:            this.color,
-            guildID:          this.guildID,
-            icon:             this.icon,
-            managed:          this.managed,
-            name:             this.name,
-            permissions:      { allow: this.permissionsAllow.toString(), deny: "0" },
+            color: this.color,
+            guildID: this.guildID,
+            icon: this.icon,
+            managed: this.managed,
+            name: this.name,
+            permissions: { allow: this.permissionsAllow.toString(), deny: "0" },
             permissionsAllow: this.permissionsAllow.toString(),
-            position:         this.position,
-            secondaryColor:   this.secondaryColor
+            position: this.position,
+            secondaryColor: this.secondaryColor,
         };
     }
 }

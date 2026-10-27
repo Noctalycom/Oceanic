@@ -1,7 +1,7 @@
 import Base from "./Base";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
 import type { SubscriptionStatuses } from "../Constants";
+import type * as Types from "../types/namespaced";
 export default class Subscription extends Base {
     /** When the subscription was canceled. */
     canceledAt: Date | null;
@@ -19,7 +19,7 @@ export default class Subscription extends Base {
     skuIDs: Array<string>;
     /** Current status of the subscription. */
     status: SubscriptionStatuses;
-    /**	ID of the user who is subscribed. */
+    /** ID of the user who is subscribed. */
     userID: string;
     constructor(data: Types.Applications.RawSubscription, client: Client);
     toJSON(): Types.JSON.JSONSubscription;

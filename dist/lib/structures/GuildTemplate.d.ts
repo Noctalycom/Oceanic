@@ -1,8 +1,7 @@
-/** @module GuildTemplate */
 import type Guild from "./Guild";
 import type User from "./User";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild template. */
 export default class GuildTemplate {
     private _cachedSourceGuild?;
@@ -28,9 +27,9 @@ export default class GuildTemplate {
     /** The amount of times this template has been used. */
     usageCount: number;
     constructor(data: Types.GuildTemplate.RawGuildTemplate, client: Client);
-    protected update(data: Partial<Types.GuildTemplate.RawGuildTemplate>): void;
     /** The source guild of this template. This will throw an error if the guild is not cached. */
     get sourceGuild(): Guild;
+    protected update(data: Partial<Types.GuildTemplate.RawGuildTemplate>): void;
     /**
      * Delete this template.
      */

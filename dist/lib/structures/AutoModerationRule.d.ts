@@ -1,10 +1,9 @@
-/** @module AutoModerationRule */
 import Base from "./Base";
-import type User from "./User";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
+import type User from "./User";
 import type Client from "../Client";
 import type { AutoModerationEventTypes, AutoModerationTriggerTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an auto moderation rule. */
 export default class AutoModerationRule extends Base {
     private _cachedGuild?;
@@ -31,9 +30,9 @@ export default class AutoModerationRule extends Base {
     /** This rule's [trigger type](https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types). */
     triggerType: AutoModerationTriggerTypes;
     constructor(data: Types.AutoModeration.RawAutoModerationRule, client: Client);
-    protected update(data: Partial<Types.AutoModeration.RawAutoModerationRule>): void;
     /** The guild this rule is in. This will throw an error if the guild is not cached. */
     get guild(): Guild;
+    protected update(data: Partial<Types.AutoModeration.RawAutoModerationRule>): void;
     /**
      * Delete this auto moderation rule.
      * @param reason The reason for deleting this rule.

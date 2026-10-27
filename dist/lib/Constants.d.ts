@@ -1,17 +1,17 @@
-import type * as Types from "./types/namespaced";
-/** @module Constants */
-import type PrivateChannel from "./structures/PrivateChannel";
-import type TextChannel from "./structures/TextChannel";
-import type VoiceChannel from "./structures/VoiceChannel";
-import type GroupChannel from "./structures/GroupChannel";
-import type CategoryChannel from "./structures/CategoryChannel";
 import type AnnouncementChannel from "./structures/AnnouncementChannel";
 import type AnnouncementThreadChannel from "./structures/AnnouncementThreadChannel";
-import type PublicThreadChannel from "./structures/PublicThreadChannel";
-import type PrivateThreadChannel from "./structures/PrivateThreadChannel";
-import type StageChannel from "./structures/StageChannel";
+import type CategoryChannel from "./structures/CategoryChannel";
 import type ForumChannel from "./structures/ForumChannel";
+import type GroupChannel from "./structures/GroupChannel";
 import type MediaChannel from "./structures/MediaChannel";
+import type PrivateChannel from "./structures/PrivateChannel";
+/** @module Constants */
+import type PrivateThreadChannel from "./structures/PrivateThreadChannel";
+import type PublicThreadChannel from "./structures/PublicThreadChannel";
+import type StageChannel from "./structures/StageChannel";
+import type TextChannel from "./structures/TextChannel";
+import type VoiceChannel from "./structures/VoiceChannel";
+import type * as Types from "./types/namespaced";
 export declare const GATEWAY_VERSION = 10;
 export declare const REST_VERSION = 10;
 export declare const BASE_URL = "https://discord.com";

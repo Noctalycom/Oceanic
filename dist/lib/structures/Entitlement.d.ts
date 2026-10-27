@@ -1,6 +1,6 @@
 import BaseEntitlement from "./BaseEntitlement";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents an entitlement. */
 export default class Entitlement extends BaseEntitlement {
     endsAt: Date | null;

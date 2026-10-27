@@ -1,16 +1,15 @@
-/** @module REST/Channels */
-import type * as Types from "../types/namespaced";
-import type Message from "../structures/Message";
 import Invite, { type InviteWithoutCounts, type InviteWithMetadata, type InviteWithCountsAndScheduledEvent, type InviteWithCounts, type InviteWithScheduledEvent } from "../structures/Invite";
-import type AnnouncementThreadChannel from "../structures/AnnouncementThreadChannel";
-import type PublicThreadChannel from "../structures/PublicThreadChannel";
-import type PrivateThreadChannel from "../structures/PrivateThreadChannel";
-import type AnnouncementChannel from "../structures/AnnouncementChannel";
-import type RESTManager from "../rest/RESTManager";
-import type PrivateChannel from "../structures/PrivateChannel";
-import type GroupChannel from "../structures/GroupChannel";
-import type User from "../structures/User";
 import StageInstance from "../structures/StageInstance";
+import type RESTManager from "../rest/RESTManager";
+import type AnnouncementChannel from "../structures/AnnouncementChannel";
+import type AnnouncementThreadChannel from "../structures/AnnouncementThreadChannel";
+import type GroupChannel from "../structures/GroupChannel";
+import type Message from "../structures/Message";
+import type PrivateChannel from "../structures/PrivateChannel";
+import type PrivateThreadChannel from "../structures/PrivateThreadChannel";
+import type PublicThreadChannel from "../structures/PublicThreadChannel";
+import type User from "../structures/User";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with channels. Located at {@link Client#rest | Client#rest}{@link RESTManager#channels | .channels}. */
 export default class Channels {
     private _manager;
@@ -208,6 +207,12 @@ export default class Channels {
     getInvite<CH extends Types.Invites.InviteChannel = Types.Invites.InviteChannel>(code: string, options: Types.Invites.GetInviteWithCountsAndScheduledEventOptions): Promise<InviteWithCountsAndScheduledEvent<CH>>;
     getInvite<CH extends Types.Invites.InviteChannel = Types.Invites.InviteChannel>(code: string, options: Types.Invites.GetInviteWithScheduledEventOptions): Promise<InviteWithScheduledEvent<CH>>;
     /**
+     * Get the invites of a channel.
+     * @param channelID The ID of the channel to get the invites of.
+     * @caching This method **does not** cache its result.
+     */
+    getInvites<CH extends Types.Invites.GuildInviteChannel = Types.Invites.GuildInviteChannel>(channelID: string): Promise<Array<InviteWithMetadata<CH>>>;
+    /**
      * Get the target users for an invite. Requires being the inviter or having the `MANAGE_GUILD` or `VIEW_AUDIT_LOG` permission.
      * @param code The code of the invite.
      */
@@ -217,12 +222,6 @@ export default class Channels {
      * @param code The code of the invite.
      */
     getInviteTargetUsersJobStatus(code: string): Promise<Types.Invites.InviteTargetUsersJobStatusResponse>;
-    /**
-     * Get the invites of a channel.
-     * @param channelID The ID of the channel to get the invites of.
-     * @caching This method **does not** cache its result.
-     */
-    getInvites<CH extends Types.Invites.GuildInviteChannel = Types.Invites.GuildInviteChannel>(channelID: string): Promise<Array<InviteWithMetadata<CH>>>;
     /**
      * Get the private archived threads the current user has joined in a channel.
      * @param channelID The ID of the channel to get the archived threads from.

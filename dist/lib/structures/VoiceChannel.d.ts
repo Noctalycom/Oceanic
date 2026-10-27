@@ -1,8 +1,8 @@
 /** @module VoiceChannel */
 import TextableVoiceChannel from "./TextableVoiceChannel";
-import type * as Types from "../types/namespaced";
-import type { ChannelTypes } from "../Constants";
 import type Client from "../Client";
+import type { ChannelTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild voice channel. */
 export default class VoiceChannel extends TextableVoiceChannel<VoiceChannel> {
     /** The status of this voice channel. */

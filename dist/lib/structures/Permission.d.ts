@@ -1,6 +1,6 @@
 /** @module Permission */
-import type * as Types from "../types/namespaced";
 import { Permissions, type PermissionName as PermissionNames } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a permission. */
 export default class Permission {
     private _json;

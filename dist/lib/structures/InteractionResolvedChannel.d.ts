@@ -1,12 +1,11 @@
-/** @module InteractionResolvedChannel */
-import type AnnouncementChannel from "./AnnouncementChannel";
-import type TextChannel from "./TextChannel";
-import Permission from "./Permission";
 import Channel from "./Channel";
+import Permission from "./Permission";
+import type AnnouncementChannel from "./AnnouncementChannel";
 import type ForumChannel from "./ForumChannel";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
+import type TextChannel from "./TextChannel";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a channel from an interaction option. This can be any guild channel, or a direct message. */
 export default class InteractionResolvedChannel extends Channel {
     private _cachedCompleteChannel?;

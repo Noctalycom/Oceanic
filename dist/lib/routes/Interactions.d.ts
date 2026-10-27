@@ -1,7 +1,6 @@
-/** @module REST/Interactions */
-import type * as Types from "../types/namespaced";
 import type RESTManager from "../rest/RESTManager";
 import type Message from "../structures/Message";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with interactions. Located at {@link Client#rest | Client#rest}{@link RESTManager#interactions | .interactions}. */
 export default class Interactions {
     private _manager;

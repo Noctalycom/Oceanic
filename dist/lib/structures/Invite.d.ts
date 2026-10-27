@@ -1,11 +1,12 @@
+/** @module Invite */
+import { type InviteTargetTypes, type InviteTypes } from "../Constants";
 import GuildScheduledEvent from "./GuildScheduledEvent";
-import type User from "./User";
-import PartialApplication from "./PartialApplication";
 import InviteGuild from "./InviteGuild";
 import InviteRole from "./InviteRole";
-import type * as Types from "../types/namespaced";
+import PartialApplication from "./PartialApplication";
+import type User from "./User";
 import type Client from "../Client";
-import { type InviteTargetTypes, type InviteTypes } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents an invite. */
 export default class Invite<CH extends Types.Invites.InviteChannel = Types.Invites.InviteChannel> {
     private _cachedChannel;
@@ -57,9 +58,9 @@ export default class Invite<CH extends Types.Invites.InviteChannel = Types.Invit
     static withCountsAndScheduledEvent<CH extends Types.Invites.GuildInviteChannel = Types.Invites.GuildInviteChannel>(data: Types.Invites.RawInvite, client: Client): InviteWithCountsAndScheduledEvent<CH>;
     static withMetadata<CH extends Types.Invites.GuildInviteChannel = Types.Invites.GuildInviteChannel>(data: Types.Invites.RawInvite, client: Client): InviteWithMetadata<CH>;
     static withScheduledEvent<CH extends Types.Invites.GuildInviteChannel = Types.Invites.GuildInviteChannel>(data: Types.Invites.RawInvite, client: Client): InviteWithScheduledEvent<CH>;
-    protected update(data: Partial<Types.Invites.RawInvite>): void;
     /** The channel this invite leads to. If the channel is not cached, this will be a partial with only `id`, `name`, and `type`. */
     get channel(): (CH extends Types.Channels.AnyInviteChannel ? CH : Types.Channels.PartialInviteChannel) | null;
+    protected update(data: Partial<Types.Invites.RawInvite>): void;
     /**
      * Delete this invite.
      * @param reason The reason for deleting this invite.

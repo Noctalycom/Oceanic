@@ -1,13 +1,13 @@
 /** @module REST/OAuth */
-import type * as Types from "../types/namespaced";
-import OAuthApplication from "../structures/OAuthApplication";
-import Member from "../structures/Member";
-import type RESTManager from "../rest/RESTManager";
 import OAuthHelper from "../rest/OAuthHelper";
-import OAuthGuild from "../structures/OAuthGuild";
 import ExtendedUser from "../structures/ExtendedUser";
+import Member from "../structures/Member";
+import OAuthApplication from "../structures/OAuthApplication";
+import OAuthGuild from "../structures/OAuthGuild";
+import type RESTManager from "../rest/RESTManager";
 import type Entitlement from "../structures/Entitlement";
 import type TestEntitlement from "../structures/TestEntitlement";
+import type * as Types from "../types/namespaced";
 /** Various methods for interacting with oauth. Located at {@link Client#rest | Client#rest}{@link RESTManager#oauth | .oauth}. */
 export default class OAuth {
     private _manager;

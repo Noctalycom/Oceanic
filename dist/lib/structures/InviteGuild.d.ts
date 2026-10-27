@@ -1,9 +1,8 @@
-/** @module InviteGuild */
 import Base from "./Base";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
-import type { GuildFeature, GuildNSFWLevels, ImageFormat, VerificationLevels } from "../Constants";
 import type Client from "../Client";
+import type { GuildFeature, GuildNSFWLevels, ImageFormat, VerificationLevels } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a guild received via an invite. */
 export default class InviteGuild extends Base {
     private _cachedCompleteGuild?;

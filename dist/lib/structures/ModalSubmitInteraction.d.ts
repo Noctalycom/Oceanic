@@ -1,17 +1,17 @@
 /** @module ModalSubmitInteraction */
+import { type InteractionTypes, type InteractionContextTypes } from "../Constants";
+import MessageInteractionResponse, { type FollowupMessageInteractionResponse, type InitialMessagedInteractionResponse } from "../util/interactions/MessageInteractionResponse";
 import Interaction from "./Interaction";
 import Member from "./Member";
-import User from "./User";
-import type Guild from "./Guild";
-import Permission from "./Permission";
 import Message from "./Message";
-import type PrivateChannel from "./PrivateChannel";
+import Permission from "./Permission";
+import User from "./User";
 import type Entitlement from "./Entitlement";
+import type Guild from "./Guild";
+import type PrivateChannel from "./PrivateChannel";
 import type TestEntitlement from "./TestEntitlement";
-import type * as Types from "../types/namespaced";
-import { type InteractionTypes, type InteractionContextTypes } from "../Constants";
 import type Client from "../Client";
-import MessageInteractionResponse, { type FollowupMessageInteractionResponse, type InitialMessagedInteractionResponse } from "../util/interactions/MessageInteractionResponse";
+import type * as Types from "../types/namespaced";
 /** Represents a modal submit interaction. */
 export default class ModalSubmitInteraction<T extends Types.Channels.AnyInteractionChannel | Types.Shared.Uncached = Types.Channels.AnyInteractionChannel | Types.Shared.Uncached> extends Interaction {
     private _cachedChannel;

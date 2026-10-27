@@ -1,8 +1,7 @@
-/** @module Role */
 import Base from "./Base";
 import type Guild from "./Guild";
-import type * as Types from "../types/namespaced";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a role in a guild. */
 export default class Role extends Base {
     private _cachedGuild?;
@@ -23,11 +22,11 @@ export default class Role extends Base {
     /** The secondary color of this role, or 0 if it has none. */
     secondaryColor: number;
     constructor(data: Types.Guilds.RawRole, client: Client, guildID: string);
-    protected update(data: Partial<Types.Guilds.RawRole>): void;
     /** The guild this role is in. This will throw an error if the guild is not cached. */
     get guild(): Guild;
     /** A string that will mention this role. */
     get mention(): string;
+    protected update(data: Partial<Types.Guilds.RawRole>): void;
     /**
      * Delete this role.
      * @param reason The reason for deleting the role.

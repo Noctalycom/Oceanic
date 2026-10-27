@@ -1,11 +1,10 @@
-/** @module StageInstance */
 import Base from "./Base";
-import type StageChannel from "./StageChannel";
 import type Guild from "./Guild";
 import type GuildScheduledEvent from "./GuildScheduledEvent";
-import type * as Types from "../types/namespaced";
+import type StageChannel from "./StageChannel";
 import type Client from "../Client";
 import type { StageInstancePrivacyLevels } from "../Constants";
+import type * as Types from "../types/namespaced";
 /** Represents a stage instance. */
 export default class StageInstance extends Base {
     private _cachedChannel?;
@@ -24,12 +23,12 @@ export default class StageInstance extends Base {
     /** The topic of this stage instance. */
     topic: string;
     constructor(data: Types.Guilds.RawStageInstance, client: Client);
-    protected update(data: Partial<Types.Guilds.RawStageInstance>): void;
     /** The associated stage channel. */
     get channel(): StageChannel | undefined;
     /** The guild of the associated stage channel. This will throw an error if the guild is not cached. */
     get guild(): Guild;
     /** The scheduled event for this stage instance, if applicable. */
     get scheduledEvent(): GuildScheduledEvent | null | undefined;
+    protected update(data: Partial<Types.Guilds.RawStageInstance>): void;
     toJSON(): Types.JSON.JSONStageInstance;
 }

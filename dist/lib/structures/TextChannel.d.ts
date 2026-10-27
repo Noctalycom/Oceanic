@@ -1,11 +1,11 @@
 /** @module TextChannel */
-import type AnnouncementChannel from "./AnnouncementChannel";
-import type PublicThreadChannel from "./PublicThreadChannel";
-import type PrivateThreadChannel from "./PrivateThreadChannel";
-import ThreadableChannel from "./ThreadableChannel";
-import type * as Types from "../types/namespaced";
 import { ChannelTypes } from "../Constants";
+import ThreadableChannel from "./ThreadableChannel";
+import type AnnouncementChannel from "./AnnouncementChannel";
+import type PrivateThreadChannel from "./PrivateThreadChannel";
+import type PublicThreadChannel from "./PublicThreadChannel";
 import type Client from "../Client";
+import type * as Types from "../types/namespaced";
 /** Represents a guild text channel. */
 export default class TextChannel extends ThreadableChannel<TextChannel, PublicThreadChannel | PrivateThreadChannel> {
     type: ChannelTypes.GUILD_TEXT;
