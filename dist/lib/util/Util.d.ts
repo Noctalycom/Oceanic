@@ -50,8 +50,8 @@ export default class Util {
     formatAllowedMentions(allowed?: Types.Channels.AllowedMentions | null): Types.Channels.RawAllowedMentions;
     formatImage(url: string, format?: ImageFormat, size?: number): string;
     getMagic(file: Buffer, len?: number): string;
-    modalSubmitComponentsToParsed<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToModalSubmitComponentFromRaw<T>>;
-    modalSubmitComponentsToRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToRawFromModalSubmitComponent<T>>;
+    modalSubmitComponentsToParsed<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitTextDisplayComponent | Types.Interactions.RawModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToModalSubmitComponentFromRaw<T>>;
+    modalSubmitComponentsToRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitTextDisplayComponent | Types.Interactions.ModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToRawFromModalSubmitComponent<T>>;
     optionToParsed(option: Types.Applications.RawApplicationCommandOption): Types.Applications.ApplicationCommandOptions;
     optionToRaw(option: Types.Applications.ApplicationCommandOptions): Types.Applications.RawApplicationCommandOption;
     /** @internal */

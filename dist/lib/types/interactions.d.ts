@@ -384,7 +384,7 @@ interface ModalComponentsLabel<T extends ModalSubmitComponents> {
     type: ComponentTypes.LABEL;
 }
 
-export type ToModalSubmitComponentFromRaw<T extends RawModalSubmitComponentsActionRow | RawModalSubmitComponentsLabel | RawModalSubmitComponents> =
+export type ToModalSubmitComponentFromRaw<T extends RawModalSubmitComponentsActionRow | RawModalSubmitComponentsLabel | RawModalSubmitTextDisplayComponent | RawModalSubmitComponents> =
 T extends RawModalSubmitComponentsActionRow ? ModalSubmitComponentsActionRow :
     T extends RawModalSubmitComponentsLabel ? ModalSubmitComponentsLabel :
         T extends RawModalSubmitTextInputComponent ? ModalSubmitTextInputComponent :
@@ -397,7 +397,8 @@ T extends RawModalSubmitComponentsActionRow ? ModalSubmitComponentsActionRow :
                                     T extends RawModalSubmitCheckboxComponent ? ModalSubmitCheckboxComponent :
                                         T extends RawModalSubmitCheckboxGroupComponent ? ModalSubmitCheckboxGroupComponent :
                                             T extends RawModalSubmitRadioGroupComponent ? ModalSubmitRadioGroupComponent :
-                                                never;
+                                                T extends RawModalSubmitTextDisplayComponent ? ModalSubmitTextDisplayComponent :
+                                                    never;
 
 /** @deprecated */
 export type RawModalSubmitComponentsActionRow = RawModalComponentsActionRow<RawModalSubmitComponents>;
@@ -414,6 +415,10 @@ export interface RawModalSubmitFileUploadComponent extends RawModalSubmitCompone
 export interface RawModalSubmitCheckboxComponent extends RawModalSubmitComponentsBooleanValue<ComponentTypes.CHECKBOX> { }
 export interface RawModalSubmitCheckboxGroupComponent extends RawModalSubmitComponentsStringValues<ComponentTypes.CHECKBOX_GROUP> {}
 export interface RawModalSubmitRadioGroupComponent extends RawModalSubmitComponentsNullableStringValue<ComponentTypes.RADIO_GROUP> {}
+/** A text display of the modal, which Discord sends back with the submission. It holds no answer. */
+export interface RawModalSubmitTextDisplayComponent {
+    type: ComponentTypes.TEXT_DISPLAY;
+}
 
 interface ModalSubmitComponentsBase {
     customID: string;
@@ -439,7 +444,7 @@ export interface ModalSubmitComponentsNullableStringValue<T extends ModalCompone
     value: string | null;
 }
 
-export type ToRawFromModalSubmitComponent<T extends ModalSubmitComponentsActionRow | ModalSubmitComponentsLabel | ModalSubmitComponents> =
+export type ToRawFromModalSubmitComponent<T extends ModalSubmitComponentsActionRow | ModalSubmitComponentsLabel | ModalSubmitTextDisplayComponent | ModalSubmitComponents> =
 T extends ModalSubmitComponentsActionRow ? RawModalSubmitComponentsActionRow :
     T extends ModalSubmitComponentsLabel ? RawModalSubmitComponentsLabel :
         T extends ModalSubmitTextInputComponent ? RawModalSubmitTextInputComponent :
@@ -452,7 +457,8 @@ T extends ModalSubmitComponentsActionRow ? RawModalSubmitComponentsActionRow :
                                     T extends ModalSubmitCheckboxComponent ? RawModalSubmitCheckboxComponent :
                                         T extends ModalSubmitCheckboxGroupComponent ? RawModalSubmitCheckboxGroupComponent :
                                             T extends ModalSubmitRadioGroupComponent ? RawModalSubmitRadioGroupComponent :
-                                                never;
+                                                T extends ModalSubmitTextDisplayComponent ? RawModalSubmitTextDisplayComponent :
+                                                    never;
 
 /** @deprecated */
 export type ModalSubmitComponentsActionRow = ModalComponentsActionRow<ModalSubmitComponents>;
@@ -469,6 +475,10 @@ export interface ModalSubmitFileUploadComponent extends ModalSubmitComponentsStr
 export interface ModalSubmitCheckboxComponent extends ModalSubmitComponentsBooleanValue<ComponentTypes.CHECKBOX> {}
 export interface ModalSubmitCheckboxGroupComponent extends ModalSubmitComponentsStringValues<ComponentTypes.CHECKBOX_GROUP> { }
 export interface ModalSubmitRadioGroupComponent extends ModalSubmitComponentsNullableStringValue<ComponentTypes.RADIO_GROUP> {}
+/** A text display of the modal, which Discord sends back with the submission. It holds no answer. */
+export interface ModalSubmitTextDisplayComponent {
+    type: ComponentTypes.TEXT_DISPLAY;
+}
 
 export type ApplicationCommandTypesWithTarget = ApplicationCommandTypes.USER | ApplicationCommandTypes.MESSAGE;
 
@@ -542,6 +552,7 @@ export interface ModalSubmitComponentTypeMap {
     [ComponentTypes.RADIO_GROUP]: ModalSubmitRadioGroupComponent;
     [ComponentTypes.CHECKBOX_GROUP]: ModalSubmitCheckboxGroupComponent;
     [ComponentTypes.CHECKBOX]: ModalSubmitCheckboxComponent;
+    [ComponentTypes.TEXT_DISPLAY]: ModalSubmitTextDisplayComponent;
 }
 
 export interface RawModalSubmitComponentTypeMap {
@@ -557,6 +568,7 @@ export interface RawModalSubmitComponentTypeMap {
     [ComponentTypes.RADIO_GROUP]: RawModalSubmitRadioGroupComponent;
     [ComponentTypes.CHECKBOX_GROUP]: RawModalSubmitCheckboxGroupComponent;
     [ComponentTypes.CHECKBOX]: RawModalSubmitCheckboxComponent;
+    [ComponentTypes.TEXT_DISPLAY]: RawModalSubmitTextDisplayComponent;
 }
 
 /* eslint-enable @typescript-eslint/member-ordering */

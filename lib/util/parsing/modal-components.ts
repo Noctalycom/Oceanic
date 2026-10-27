@@ -2,7 +2,7 @@
 import { ComponentTypes, type ModalComponentTypes } from "../../Constants";
 import type * as Types from "../../types/namespaced";
 
-const FROM_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | ModalComponentTypes]: (input: Types.Interactions.RawModalSubmitComponentTypeMap[K]) => Types.Interactions.ModalSubmitComponentTypeMap[K] } = {
+const FROM_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | ComponentTypes.TEXT_DISPLAY | ModalComponentTypes]: (input: Types.Interactions.RawModalSubmitComponentTypeMap[K]) => Types.Interactions.ModalSubmitComponentTypeMap[K] } = {
     [ComponentTypes.ACTION_ROW]: component => ({
         components: component.components.map(c => fromRaw(c) as never),
         type:       component.type
@@ -60,14 +60,17 @@ const FROM_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | Modal
         customID: component.custom_id,
         type:     component.type,
         values:   component.values
+    }),
+    [ComponentTypes.TEXT_DISPLAY]: component => ({
+        type: component.type
     })
 };
 
-export function fromRaw<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitComponents>(component: T): Types.Interactions.ToModalSubmitComponentFromRaw<T> {
+export function fromRaw<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitTextDisplayComponent | Types.Interactions.RawModalSubmitComponents>(component: T): Types.Interactions.ToModalSubmitComponentFromRaw<T> {
     return FROM_RAW[component.type](component as never) as never;
 }
 
-const TO_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | ModalComponentTypes]: (input: Types.Interactions.ModalSubmitComponentTypeMap[K]) => Types.Interactions.RawModalSubmitComponentTypeMap[K] } = {
+const TO_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | ComponentTypes.TEXT_DISPLAY | ModalComponentTypes]: (input: Types.Interactions.ModalSubmitComponentTypeMap[K]) => Types.Interactions.RawModalSubmitComponentTypeMap[K] } = {
     [ComponentTypes.ACTION_ROW]: component => ({
         type:       component.type,
         components: component.components.map(c => toRaw(c) as never)
@@ -125,9 +128,12 @@ const TO_RAW: { [K in ComponentTypes.ACTION_ROW | ComponentTypes.LABEL | ModalCo
         custom_id: component.customID,
         values:    component.values,
         type:      component.type
+    }),
+    [ComponentTypes.TEXT_DISPLAY]: component => ({
+        type: component.type
     })
 };
 
-export function toRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitComponents>(component: T): Types.Interactions.ToRawFromModalSubmitComponent<T> {
+export function toRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitTextDisplayComponent | Types.Interactions.ModalSubmitComponents>(component: T): Types.Interactions.ToRawFromModalSubmitComponent<T> {
     return TO_RAW[component.type](component as never) as never;
 }

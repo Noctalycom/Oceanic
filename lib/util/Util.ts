@@ -329,11 +329,11 @@ export default class Util {
         return [...new Uint8Array(file.subarray(0, len))].map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
     }
 
-    modalSubmitComponentsToParsed<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToModalSubmitComponentFromRaw<T>> {
+    modalSubmitComponentsToParsed<T extends Types.Interactions.RawModalSubmitComponentsActionRow | Types.Interactions.RawModalSubmitComponentsLabel | Types.Interactions.RawModalSubmitTextDisplayComponent | Types.Interactions.RawModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToModalSubmitComponentFromRaw<T>> {
         return components.map(component => modalSubmitComponentsFromRaw(component));
     }
 
-    modalSubmitComponentsToRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToRawFromModalSubmitComponent<T>> {
+    modalSubmitComponentsToRaw<T extends Types.Interactions.ModalSubmitComponentsActionRow | Types.Interactions.ModalSubmitComponentsLabel | Types.Interactions.ModalSubmitTextDisplayComponent | Types.Interactions.ModalSubmitComponents>(components: Array<T>): Array<Types.Interactions.ToRawFromModalSubmitComponent<T>> {
         return components.map(component => modalSubmitComponentsToRaw(component));
     }
 
