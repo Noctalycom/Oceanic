@@ -308,8 +308,10 @@ export default class RequestHandler {
                     cb();
                     if (err instanceof Error && err.constructor.name === "DOMException" && err.name === "AbortError") {
                         reject(new Error(`Request Timed Out (>${this.options.requestTimeout}ms) on ${options.method} ${options.path}`));
+                        return;
                     }
-                    this._manager.client.emit("error", err as Error);
+                    // Network failures (fetch failed: EPIPE, ECONNRESET...) must settle the request, or the caller awaits forever.
+                    reject(err instanceof Error ? err : new Error(String(err)));
                 }
             }
             if (this.globalBlock && options.auth) {
